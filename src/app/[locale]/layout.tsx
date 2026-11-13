@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { Bricolage_Grotesque, Geist } from 'next/font/google';
+import { SITE_URL } from '@/constants/site.constants';
 import { LOCALES, hasLocale } from '@/i18n/locales';
 import { getDictionaryFor } from '@/i18n/getDictionaryFor';
 import { AppProviders } from '@/providers/AppProviders';
@@ -23,7 +24,7 @@ export async function generateMetadata({ params }: LayoutProps<'/[locale]'>): Pr
   const { locale } = await params;
   if (!hasLocale(locale)) return {};
   const dict = getDictionaryFor(locale);
-  return { title: dict.meta.siteName, description: dict.meta.description };
+  return { metadataBase: new URL(SITE_URL), title: dict.meta.siteName, description: dict.meta.description };
 }
 
 export default async function LocaleLayout({ children, params }: LayoutProps<'/[locale]'>) {

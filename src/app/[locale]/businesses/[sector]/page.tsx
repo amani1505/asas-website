@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { buildMetadata } from '@/utils/metadata.util';
 import { CONTENT } from '@/content';
 import { DEFAULT_LOCALE, hasLocale } from '@/i18n/locales';
 import { getDictionaryFor } from '@/i18n/getDictionaryFor';
@@ -21,7 +22,7 @@ export async function generateMetadata({ params }: PageProps<'/[locale]/business
   const { locale, sector: slug } = await params;
   if (!hasLocale(locale)) return {};
   const sector = getSector(locale, slug);
-  return sector ? { title: sector.name, description: sector.summary } : {};
+  return sector ? buildMetadata({ locale, path: `/businesses/${sector.slug}`, title: sector.name, description: sector.summary, image: sector.image }) : {};
 }
 
 export default async function SectorPage({ params }: PageProps<'/[locale]/businesses/[sector]'>) {

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { buildMetadata } from '@/utils/metadata.util';
 import { CONTENT } from '@/content';
 import { getDictionaryFor } from '@/i18n/getDictionaryFor';
 import { DEFAULT_LOCALE, hasLocale } from '@/i18n/locales';
@@ -15,7 +16,7 @@ export async function generateMetadata({ params }: PageProps<'/[locale]/news/[sl
   const { locale, slug } = await params;
   if (!hasLocale(locale)) return {};
   const item = getNewsItem(locale, slug);
-  return item ? { title: item.title, description: item.excerpt } : {};
+  return item ? buildMetadata({ locale, path: `/news/${item.slug}`, title: item.title, description: item.excerpt, image: item.image }) : {};
 }
 
 export default async function NewsArticlePage({ params }: PageProps<'/[locale]/news/[slug]'>) {

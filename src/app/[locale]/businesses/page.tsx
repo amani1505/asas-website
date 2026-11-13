@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { buildMetadata } from '@/utils/metadata.util';
 import { getDictionaryFor } from '@/i18n/getDictionaryFor';
 import { hasLocale } from '@/i18n/locales';
 import { Container } from '@/components/ui/Container';
@@ -12,7 +13,7 @@ export async function generateMetadata({ params }: PageProps<'/[locale]/business
   const { locale } = await params;
   if (!hasLocale(locale)) return {};
   const dict = getDictionaryFor(locale);
-  return { title: dict.nav.businesses, description: dict.businesses.description };
+  return buildMetadata({ locale, path: '/businesses', title: dict.nav.businesses, description: dict.businesses.description });
 }
 
 export default async function BusinessesPage({ params }: PageProps<'/[locale]/businesses'>) {

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { buildMetadata } from '@/utils/metadata.util';
 import { getDictionaryFor } from '@/i18n/getDictionaryFor';
 import { hasLocale } from '@/i18n/locales';
 import { PageTransition } from '@/components/motion/PageTransition';
@@ -14,7 +15,7 @@ export async function generateMetadata({ params }: PageProps<'/[locale]/about'>)
   const { locale } = await params;
   if (!hasLocale(locale)) return {};
   const { about } = getContent(locale);
-  return { title: getDictionaryFor(locale).nav.about, description: about.intro.body[0] };
+  return buildMetadata({ locale, path: '/about', title: getDictionaryFor(locale).nav.about, description: about.intro.body[0], image: about.intro.image });
 }
 
 export default async function AboutPage({ params }: PageProps<'/[locale]/about'>) {

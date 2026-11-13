@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { buildMetadata } from '@/utils/metadata.util';
 import { EMAIL } from '@/constants/contact.constants';
 import { getDictionaryFor } from '@/i18n/getDictionaryFor';
 import { hasLocale } from '@/i18n/locales';
@@ -11,7 +12,7 @@ import { OpenRolesSection } from '@/sections/careers/OpenRolesSection';
 export async function generateMetadata({ params }: PageProps<'/[locale]/careers'>): Promise<Metadata> {
   const { locale } = await params;
   if (!hasLocale(locale)) return {};
-  return { title: getDictionaryFor(locale).nav.careers, description: getContent(locale).careers.intro.body[0] };
+  return buildMetadata({ locale, path: '/careers', title: getDictionaryFor(locale).nav.careers, description: getContent(locale).careers.intro.body[0] });
 }
 
 export default async function CareersPage({ params }: PageProps<'/[locale]/careers'>) {
