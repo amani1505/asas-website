@@ -3,6 +3,7 @@ import path from 'node:path';
 import { CONTENT } from '@/content';
 import { CLIENTS } from '@/constants/site.constants';
 import { LOCALES } from '@/i18n/locales';
+import type { ContentBundleI } from '@/interfaces/content.interface';
 
 const imagePaths = (value: unknown): string[] => (JSON.stringify(value).match(/"\/images\/[^"]+"/g) ?? []).map((raw) => JSON.parse(raw));
 
@@ -63,5 +64,25 @@ describe('clients', () => {
   it('lists client logos that exist', () => {
     expect(CLIENTS.length).toBeGreaterThanOrEqual(8);
     for (const src of imagePaths(CLIENTS)) expect(fs.existsSync(path.join('public', src))).toBe(true);
+  });
+});
+
+describe('swahili parity', () => {
+  const ids = (bundle: ContentBundleI) => ({
+    sectors: bundle.sectors.map((sector) => [sector.slug, sector.companies.map((company) => company.slug)]),
+    products: bundle.products.map((product) => product.slug),
+    news: bundle.news.map((item) => [item.slug, item.date, item.image?.src]),
+    tabs: bundle.sustainability.tabs.map((tab) => tab.id),
+    offices: bundle.offices.map((office) => office.id),
+    timeline: bundle.about.timeline.map((event) => event.year),
+    ctas: [...JSON.stringify(bundle).matchAll(/"href":"([^"]+)"/g)].map((match) => match[1]),
+  });
+
+  it('sw mirrors en structure', () => expect(ids(CONTENT.sw)).toEqual(ids(CONTENT.en)));
+
+  it('sw long text is actually translated', () => {
+    const longEnglish = new Set(JSON.stringify(CONTENT.en).match(/"[^"]{60,}"/g));
+    const leaked = (JSON.stringify(CONTENT.sw).match(/"[^"]{60,}"/g) ?? []).filter((text) => longEnglish.has(text) && !text.startsWith("\"http"));
+    expect(leaked).toEqual([]);
   });
 });
