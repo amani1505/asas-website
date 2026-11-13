@@ -90,7 +90,7 @@ All routes live under a locale: `/en/...` and `/sw/...`.
 
 | Route | Replaces (old site) | Content |
 |---|---|---|
-| `/[locale]` **Home** | Home | Hero (one headline, one line, two CTAs: *Explore our businesses*, *Contact us*). Stat strip (90 years · 9 companies · 4 sectors · 2 offices). Sector bento (4 cards → sector pages). Short story teaser → About. Latest 3 news. Client marquee. Closing CTA band. |
+| `/[locale]` **Home** | Home | Hero (one headline, one line, two CTAs: *Explore our businesses*, *Contact us*). Stat strip (years since 1936 · number of companies · 4 sectors · 2 offices; every number is computed from content, currently 90 · 8 · 4 · 2). Sector bento (4 cards → sector pages). Short story teaser → About. Latest 3 news. Client marquee. Closing CTA band. |
 | `/[locale]/about` | About Us, Our History, The Team | "The spirit of ASAS" intro. Animated timeline (1936 A.S. Abri Transporters → 1978 ASAS Group → early 1980s dairy farm in Iringa → energy expansion …). Values. Team (if team content exists on the old site). One video (YouTube facade: thumbnail first, player loads on click). |
 | `/[locale]/businesses` | the "Business" mega-menu | The 4 sectors as large cards, each listing its companies. |
 | `/[locale]/businesses/[sector]` | 9 company pages + homepage tabs | One page per sector. Each company is a section with an anchor. **Energy:** ASAS Energies (wholesale, transit, retail stations, market supply; locations; The Koffee Shop). **Logistics:** Transfuel Logistics, ASAS Transporters, Universal Clearing & Forwarding. **Dairy & Farms:** ASAS Dairy (product catalogue with animated category filter), ASAS Dairies Farm, Afri Farm. **Real Estate:** ASAS Real Estate. Each sector ends with a contact CTA that pre-selects that business in the contact form. |
@@ -122,7 +122,7 @@ All routes live under a locale: `/en/...` and `/sw/...`.
   - Sector card image on Home/Businesses → sector page hero.
   - News card image → news detail hero.
 - Header and footer stay put (their own view-transition names) so only the content animates.
-- **Conflict to resolve:** `docs/theme-reveal-effect.md` sets `::view-transition-old(root), ::view-transition-new(root) { animation: none }` globally, which would also kill page transitions. Scope it to theme changes only: add a class (e.g. `theme-reveal`) to `<html>` before `startViewTransition` in the theme util, remove it in `transition.finished`, and write the CSS as `.theme-reveal::view-transition-old(root)` etc.
+- **Conflict to resolve:** `docs/theme-reveal-effect.md` sets `::view-transition-old(root), ::view-transition-new(root) { animation: none }` globally, which would also kill page transitions. Scope it to theme changes only: add a class (e.g. `theme-reveal`) to `<html>` before `startViewTransition` in the theme util, remove it in `transition.finished`, and write the CSS as `.theme-reveal::view-transition-old(root)` etc. While `theme-reveal` is on, also force `view-transition-name: none !important` on every element, so that named elements such as the anchored header are revealed by the circle rather than snapping on their own.
 
 **Theme toggle:** exactly as `docs/theme-reveal-effect.md` (650 ms circle from the icon, follows the system until clicked, instant fallback), with the scoping fix above.
 
