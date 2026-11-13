@@ -43,6 +43,7 @@ export const sw: DictionaryI = {
     clientsEyebrow: 'Wanaotuamini',
     clientsTitle: 'Washirika tunaosonga pamoja',
     companiesCount: 'kampuni',
+    companyCount: 'kampuni',
   },
   businesses: {
     eyebrow: 'Biashara zetu',

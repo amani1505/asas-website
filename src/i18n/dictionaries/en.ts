@@ -43,6 +43,7 @@ export const en: DictionaryI = {
     clientsEyebrow: 'Trusted by',
     clientsTitle: 'Partners who move with us',
     companiesCount: 'companies',
+    companyCount: 'company',
   },
   businesses: {
     eyebrow: 'Our businesses',

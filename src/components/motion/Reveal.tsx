@@ -13,6 +13,8 @@ interface RevealProps {
   as?: RevealTag;
   /** Animate direct children one after another (50 ms apart). */
   stagger?: boolean;
+  /** With `stagger`, classes for each child's wrapper (e.g. grid spans), by index. */
+  itemClassNames?: readonly string[];
   className?: string;
 }
 
@@ -26,7 +28,7 @@ const item: Variants = {
 const MOTION_TAGS = { div: motion.div, section: motion.section, li: motion.li, ul: motion.ul, ol: motion.ol };
 
 /** Fades content up the first time it scrolls into view. Renders static under reduced motion. */
-export function Reveal({ children, delay = 0, as = 'div', stagger = false, className }: RevealProps) {
+export function Reveal({ children, delay = 0, as = 'div', stagger = false, itemClassNames, className }: RevealProps) {
   const prefersReducedMotion = usePrefersReducedMotion();
   const Tag = MOTION_TAGS[as];
 
@@ -45,8 +47,14 @@ export function Reveal({ children, delay = 0, as = 'div', stagger = false, class
   return (
     <Tag className={className} initial="hidden" whileInView="visible" viewport={{ once: true, margin: '0px 0px -10% 0px' }} variants={container}>
       {stagger
-        ? Children.map(children, (child) =>
-            child === null || child === undefined || child === false ? child : <motion.div variants={item}>{child}</motion.div>,
+        ? Children.map(children, (child, index) =>
+            child === null || child === undefined || child === false ? (
+              child
+            ) : (
+              <motion.div variants={item} className={itemClassNames?.[index]}>
+                {child}
+              </motion.div>
+            ),
           )
         : children}
     </Tag>
