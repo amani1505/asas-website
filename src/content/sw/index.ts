@@ -10,7 +10,7 @@ export const bundle: ContentBundleI = {
       title: 'Powering Tanzania since 1936.',
       highlight: 'since 1936',
       subtitle: 'Energy, logistics, dairy and real estate.',
-      image: placeholderImage,
+      images: [placeholderImage],
       primaryCta: { label: 'Explore our businesses', href: '/businesses' },
       secondaryCta: { label: 'Contact us', href: '/contact' },
     },

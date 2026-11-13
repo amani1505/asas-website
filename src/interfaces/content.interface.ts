@@ -95,7 +95,7 @@ export interface ClientI {
 }
 
 export interface HomeContentI {
-  hero: { eyebrow: string; title: string; highlight: string; subtitle: string; image: ImageI; primaryCta: CtaI; secondaryCta: CtaI };
+  hero: { eyebrow: string; title: string; highlight: string; subtitle: string; images: ImageI[]; primaryCta: CtaI; secondaryCta: CtaI };
   storyTeaser: { eyebrow: string; title: string; body: string; cta: CtaI; image: ImageI };
   closingCta: { title: string; body: string; cta: CtaI };
 }
