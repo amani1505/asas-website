@@ -4,7 +4,7 @@ import { getDictionaryFor } from '@/i18n/getDictionaryFor';
 import { getNews } from '@/services/content.service';
 import { HeroSection } from './HeroSection';
 import { LatestNewsSection } from './LatestNewsSection';
-import { StatsSection } from './StatsSection';
+import { StatsGrid, StatsSection } from './StatsSection';
 import { ClosingCtaSection } from './ClosingCtaSection';
 
 const en = getDictionaryFor('en');
@@ -20,6 +20,27 @@ describe('HeroSection', () => {
     render(<HeroSection hero={CONTENT.en.home.hero} locale="sw" />);
     expect(screen.getByRole('link', { name: CONTENT.en.home.hero.primaryCta.label })).toHaveAttribute('href', '/sw/businesses');
     expect(screen.getByRole('link', { name: CONTENT.en.home.hero.secondaryCta.label })).toHaveAttribute('href', '/sw/contact');
+  });
+});
+
+describe('HeroSection with stats', () => {
+  it('shows the stats inside the hero, in the light-on-red style', () => {
+    const { container } = render(
+      <HeroSection
+        hero={CONTENT.en.home.hero}
+        locale="en"
+        footer={<StatsGrid stats={{ years: 90, companies: 8, sectors: 4, offices: 2 }} labels={en.stats} tone="inverse" />}
+      />,
+    );
+    const hero = container.querySelector('section')!;
+    expect(within(hero).getByLabelText('90+')).toBeInTheDocument();
+    expect(within(hero).getByText(en.stats.offices)).toHaveClass('text-primary-foreground/90');
+  });
+
+  it('draws the tanker-livery chevrons as decoration only', () => {
+    const { container } = render(<HeroSection hero={CONTENT.en.home.hero} locale="en" />);
+    const band = container.querySelector('[data-chevrons]');
+    expect(band).toHaveAttribute('aria-hidden', 'true');
   });
 });
 

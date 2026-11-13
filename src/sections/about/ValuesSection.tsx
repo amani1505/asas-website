@@ -15,7 +15,7 @@ export function ValuesSection({ eyebrow, heading, values }: ValuesSectionProps) 
     <section className="py-[var(--space-2xl)]">
       <Container className="flex flex-col gap-[var(--space-lg)]">
         <SectionHeading eyebrow={eyebrow} title={heading} />
-        <Reveal stagger className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,260px),1fr))] gap-[var(--space-sm)]">
+        <Reveal stagger className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,max(260px,calc((100%-2*var(--space-sm))/3))),1fr))] gap-[var(--space-sm)]">
           {values.map((value, index) => (
             <ValueCard key={value.title} value={value} index={index} />
           ))}

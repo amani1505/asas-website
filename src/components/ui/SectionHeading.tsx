@@ -14,13 +14,13 @@ interface SectionHeadingProps {
 }
 
 /** Renders `title`, wrapping the first occurrence of `highlight` in a red span. */
-export function HighlightedText({ text, highlight }: { text: string; highlight?: string }) {
+export function HighlightedText({ text, highlight, className = 'text-primary' }: { text: string; highlight?: string; className?: string }) {
   const index = highlight ? text.indexOf(highlight) : -1;
   if (!highlight || index < 0) return <>{text}</>;
   return (
     <>
       {text.slice(0, index)}
-      <span className="text-primary">{highlight}</span>
+      <span className={className}>{highlight}</span>
       {text.slice(index + highlight.length)}
     </>
   );

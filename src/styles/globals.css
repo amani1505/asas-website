@@ -20,16 +20,19 @@
   --sector-logistics: #2563eb;
   --sector-dairy: #16a34a;
   --sector-realestate: #7c3aed;
+  /* The livery red. Unlike --primary it stays the same in dark mode. */
+  --brand-red: #be0f0d;
   color-scheme: light;
 }
 
 .dark {
-  --background: #141213;
+  /* Lifted toward the brand charcoal (#373435) so dark mode reads soft, not black. */
+  --background: #252223;
   --foreground: #f4f1ee;
-  --card: #1c191a;
-  --muted: #221f20;
-  --muted-foreground: #aaa3a4;
-  --border: #322d2e;
+  --card: #2f2b2c;
+  --muted: #2b2728;
+  --muted-foreground: #bab3b4;
+  --border: #443e3f;
   --primary: #d92c28;
   --primary-foreground: #ffffff;
   --charcoal: #e9e5e2;
@@ -50,6 +53,7 @@
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
   --color-charcoal: var(--charcoal);
+  --color-brand-red: var(--brand-red);
   --color-sector-energy: var(--sector-energy);
   --color-sector-logistics: var(--sector-logistics);
   --color-sector-dairy: var(--sector-dairy);
@@ -59,17 +63,19 @@
   --radius: 0.375rem;
 }
 
-/* ── Fluid containers (named to avoid Tailwind's own `container` utility) ── */
+/* ── Fluid containers (named to avoid Tailwind's own `container` utility) ──
+   The gutter grows with the viewport (16px on phones, ~3vw on desktops) and the
+   site container tops out at 1600px so large screens are used, not boxed in. */
 @utility container-site {
-  width: min(100% - var(--space-md) * 2, 1280px);
+  width: min(100% - max(var(--space-md), 3vw) * 2, 1600px);
   margin-inline: auto;
 }
 @utility container-narrow {
-  width: min(100% - var(--space-md) * 2, 768px);
+  width: min(100% - var(--space-md) * 2, 960px);
   margin-inline: auto;
 }
 @utility container-wide {
-  width: min(100% - var(--space-sm) * 2, 1536px);
+  width: min(100% - max(var(--space-sm), 2vw) * 2, 1920px);
   margin-inline: auto;
 }
 
@@ -144,4 +150,24 @@
 @utility animate-rise {
   animation: rise-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
   animation-delay: var(--rise-delay, 0ms);
+}
+
+/* ── Tanker-livery chevrons along the foot of the home hero ── */
+:root {
+  --chevron-height: clamp(1.25rem, 0.95rem + 1.25vw, 2.25rem);
+}
+@keyframes chevron-drive-in {
+  from {
+    opacity: 0;
+    background-position-x: -30vw;
+  }
+}
+@utility chevron-band {
+  bottom: var(--space-sm);
+  height: var(--chevron-height);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 40'%3E%3Cpolygon fill='white' points='6,0 22,0 40,20 22,40 6,40 24,20'/%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  background-size: auto 100%;
+  opacity: 0.92;
+  animation: chevron-drive-in 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0.3s both;
 }
