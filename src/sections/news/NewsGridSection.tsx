@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import { AnimatePresence, motion } from 'motion/react';
+import { AnimatePresence, m } from 'motion/react';
 import type { DictionaryI } from '@/i18n/dictionary.interface';
 import type { Locale } from '@/i18n/locales';
 import type { NewsItemI } from '@/interfaces/content.interface';
@@ -39,10 +39,10 @@ export function NewsGridSection({ items, categories, locale, labels }: NewsGridS
         {visible.length === 0 ? (
           <p className="py-[var(--space-xl)] text-center text-muted-foreground">{labels.empty}</p>
         ) : (
-          <motion.ul layout className="grid grid-cols-[repeat(auto-fill,minmax(min(100%,280px),1fr))] gap-[var(--space-sm)]">
+          <m.ul layout className="grid grid-cols-[repeat(auto-fill,minmax(min(100%,280px),1fr))] gap-[var(--space-sm)]">
             <AnimatePresence mode="popLayout" initial={false}>
               {visible.map((item) => (
-                <motion.li
+                <m.li
                   key={item.slug}
                   layout
                   initial={{ opacity: 0, scale: 0.96 }}
@@ -51,10 +51,10 @@ export function NewsGridSection({ items, categories, locale, labels }: NewsGridS
                   transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
                 >
                   <NewsCard item={item} locale={locale} />
-                </motion.li>
+                </m.li>
               ))}
             </AnimatePresence>
-          </motion.ul>
+          </m.ul>
         )}
       </Container>
     </section>

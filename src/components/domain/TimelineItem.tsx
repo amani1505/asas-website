@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'motion/react';
+import { m } from 'motion/react';
 import type { TimelineEventI } from '@/interfaces/content.interface';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 import { cn } from '@/utils/cn.util';
@@ -45,7 +45,7 @@ export function TimelineItem({ event, side }: TimelineItemProps) {
   }
 
   return (
-    <motion.li
+    <m.li
       initial={{ opacity: 0, x: isLeft ? -24 : 24 }}
       whileInView={{ opacity: 1, x: 0 }}
       viewport={{ once: true, margin: '0px 0px -15% 0px' }}
@@ -53,6 +53,6 @@ export function TimelineItem({ event, side }: TimelineItemProps) {
       className={className}
     >
       <TimelineItemBody event={event} isLeft={isLeft} />
-    </motion.li>
+    </m.li>
   );
 }

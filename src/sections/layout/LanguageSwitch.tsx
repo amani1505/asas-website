@@ -37,7 +37,7 @@ function LanguageLinks({ locale, labels, className, search }: LanguageSwitchProp
             aria-current={isCurrent ? 'true' : undefined}
             onClick={() => rememberLocale(target)}
             className={cn(
-              'inline-flex min-h-10 min-w-10 items-center justify-center rounded-[calc(var(--radius)-2px)] px-2 text-[length:var(--text-xs)] font-semibold uppercase tracking-wider transition-colors',
+              'inline-flex min-h-11 min-w-11 items-center justify-center rounded-[calc(var(--radius)-2px)] px-2 text-[length:var(--text-xs)] font-semibold uppercase tracking-wider transition-colors',
               isCurrent ? 'bg-foreground text-background' : 'text-muted-foreground hover:text-foreground',
             )}
           >

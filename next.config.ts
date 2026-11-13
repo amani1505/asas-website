@@ -7,6 +7,8 @@ const nextConfig: NextConfig = {
     agentFeedback: true,
   },
   cacheComponents: true,
+  // `true` made unknown dynamic paths stream a 200 fallback shell instead of a 404 (checked in Task 11).
+  partialPrefetching: false,
   async redirects() {
     return OLD_URL_REDIRECTS;
   },

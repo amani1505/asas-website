@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
-import { motion } from 'motion/react';
+import { m } from 'motion/react';
 import { NAV_ITEMS } from '@/constants/navigation.constants';
 import type { DictionaryI } from '@/i18n/dictionary.interface';
 import type { Locale } from '@/i18n/locales';
@@ -76,7 +76,7 @@ export function SiteHeader({ locale, dict }: SiteHeaderProps) {
                     {dict.nav[item.key]}
                   </Link>
                   {isActive && (
-                    <motion.span layoutId="nav-underline" transition={UNDERLINE_SPRING} className="absolute inset-x-3 -bottom-px h-0.5 rounded-md bg-primary" />
+                    <m.span layoutId="nav-underline" transition={UNDERLINE_SPRING} className="absolute inset-x-3 -bottom-px h-0.5 rounded-md bg-primary" />
                   )}
                 </li>
               );

@@ -1,7 +1,7 @@
 'use client';
 
 import { Children, type ReactNode } from 'react';
-import { motion, type Variants } from 'motion/react';
+import { m, type Variants } from 'motion/react';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 
 type RevealTag = 'div' | 'section' | 'li' | 'ul' | 'ol';
@@ -25,7 +25,7 @@ const item: Variants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: EASE_OUT } },
 };
 
-const MOTION_TAGS = { div: motion.div, section: motion.section, li: motion.li, ul: motion.ul, ol: motion.ol };
+const MOTION_TAGS = { div: m.div, section: m.section, li: m.li, ul: m.ul, ol: m.ol };
 
 /** Fades content up the first time it scrolls into view. Renders static under reduced motion. */
 export function Reveal({ children, delay = 0, as = 'div', stagger = false, itemClassNames, className }: RevealProps) {
@@ -51,9 +51,9 @@ export function Reveal({ children, delay = 0, as = 'div', stagger = false, itemC
             child === null || child === undefined || child === false ? (
               child
             ) : (
-              <motion.div variants={item} className={itemClassNames?.[index]}>
+              <m.div variants={item} className={itemClassNames?.[index]}>
                 {child}
-              </motion.div>
+              </m.div>
             ),
           )
         : children}
@@ -62,5 +62,5 @@ export function Reveal({ children, delay = 0, as = 'div', stagger = false, itemC
 }
 
 /** One staggered item, for grids where the wrapper must be a specific element (e.g. `li`). */
-export const RevealItem = motion.div;
+export const RevealItem = m.div;
 export const revealItemVariants = item;

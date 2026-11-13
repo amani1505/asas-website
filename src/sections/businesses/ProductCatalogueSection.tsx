@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import { AnimatePresence, motion } from 'motion/react';
+import { AnimatePresence, m } from 'motion/react';
 import type { DictionaryI } from '@/i18n/dictionary.interface';
 import type { ProductCategory, ProductI } from '@/interfaces/content.interface';
 import { FilterChips } from '@/components/motion/FilterChips';
@@ -40,10 +40,10 @@ export function ProductCatalogueSection({ products, labels }: ProductCatalogueSe
         <h3 className="text-[length:var(--text-2xl)] font-bold">{labels.title}</h3>
       </div>
       <FilterChips label={labels.filterLabel} options={options} active={filter} onChange={setFilter} />
-      <motion.ul layout className="grid grid-cols-[repeat(auto-fill,minmax(min(100%,150px),1fr))] gap-[var(--space-xs)]">
+      <m.ul layout className="grid grid-cols-[repeat(auto-fill,minmax(min(100%,150px),1fr))] gap-[var(--space-xs)]">
         <AnimatePresence mode="popLayout" initial={false}>
           {visible.map((product) => (
-            <motion.li
+            <m.li
               key={product.slug}
               layout
               initial={{ opacity: 0, scale: 0.92 }}
@@ -52,10 +52,10 @@ export function ProductCatalogueSection({ products, labels }: ProductCatalogueSe
               transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
             >
               <ProductCard product={product} sizesLabel={labels.sizes} />
-            </motion.li>
+            </m.li>
           ))}
         </AnimatePresence>
-      </motion.ul>
+      </m.ul>
     </div>
   );
 }

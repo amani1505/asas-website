@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { motion } from 'motion/react';
+import { m } from 'motion/react';
 import type { CompanyI } from '@/interfaces/content.interface';
 import { Container } from '@/components/ui/Container';
 import { cn } from '@/utils/cn.util';
@@ -46,7 +46,7 @@ export function CompanyJumpBar({ companies, label }: CompanyJumpBarProps) {
                 isActive ? 'text-background' : 'text-muted-foreground hover:text-foreground',
               )}
             >
-              {isActive && <motion.span layoutId="company-jump" className="absolute inset-0 rounded-md bg-foreground" transition={{ type: 'spring', stiffness: 500, damping: 40 }} />}
+              {isActive && <m.span layoutId="company-jump" className="absolute inset-0 rounded-md bg-foreground" transition={{ type: 'spring', stiffness: 500, damping: 40 }} />}
               <span className="relative">{company.name}</span>
             </a>
           );

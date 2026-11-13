@@ -1,13 +1,14 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { getDictionaryFor } from '@/i18n/getDictionaryFor';
-import { setMockSearch } from '@/test-utils/renderWithPath';
 import { ContactFormSection } from './ContactFormSection';
 
 const en = getDictionaryFor('en');
 
+const setSearch = (search: string) => window.history.replaceState(null, '', search ? `/en/contact?${search}` : '/en/contact');
+
 afterEach(() => {
-  setMockSearch('');
+  setSearch('');
   jest.restoreAllMocks();
 });
 
@@ -19,7 +20,7 @@ async function fillValidForm() {
 
 describe('ContactFormSection', () => {
   it('pre-selects business from the query and opens WhatsApp on valid submit', async () => {
-    setMockSearch('business=dairy-farms');
+    setSearch('business=dairy-farms');
     const open = jest.spyOn(window, 'open').mockReturnValue(null);
     render(<ContactFormSection dict={en} />);
     expect(await screen.findByRole('combobox')).toHaveValue('dairy-farms');
@@ -33,7 +34,7 @@ describe('ContactFormSection', () => {
   });
 
   it('falls back to general for an unknown business', async () => {
-    setMockSearch('business=garbage');
+    setSearch('business=garbage');
     render(<ContactFormSection dict={en} />);
     expect(await screen.findByRole('combobox')).toHaveValue('general');
   });
@@ -57,6 +58,23 @@ describe('ContactFormSection', () => {
     await userEvent.type(screen.getByLabelText(en.contact.fields.name), 'Asha');
     await userEvent.tab();
     await waitFor(() => expect(document.querySelectorAll('[aria-invalid="true"]')).toHaveLength(2));
+  });
+
+  it('submits text that reached the DOM without a React change event (typed before hydration)', async () => {
+    const open = jest.spyOn(window, 'open').mockReturnValue(null);
+    render(<ContactFormSection dict={en} />);
+    (screen.getByLabelText(en.contact.fields.name) as HTMLInputElement).value = 'Asha Mollel';
+    await userEvent.type(screen.getByLabelText(new RegExp(en.contact.fields.contact)), 'asha@example.co.tz');
+    await userEvent.type(screen.getByLabelText(en.contact.fields.message), 'Naomba bei ya mafuta.');
+    await userEvent.click(screen.getByRole('button', { name: en.actions.sendOnWhatsApp }));
+    expect(decodeURIComponent(String(open.mock.calls[0][0]))).toContain('Name: Asha Mollel');
+  });
+
+  it('an explicit choice wins over the query', async () => {
+    setSearch('business=energy');
+    render(<ContactFormSection dict={en} />);
+    await userEvent.selectOptions(screen.getByRole('combobox'), 'logistics');
+    expect(screen.getByRole('combobox')).toHaveValue('logistics');
   });
 
   it('offers an email alternative with the same text', async () => {

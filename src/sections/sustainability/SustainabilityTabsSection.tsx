@@ -1,6 +1,6 @@
 'use client';
 
-import { AnimatePresence, motion } from 'motion/react';
+import { AnimatePresence, m } from 'motion/react';
 import { Check } from 'lucide-react';
 import type { SustainabilityTabI } from '@/interfaces/content.interface';
 import { Container } from '@/components/ui/Container';
@@ -40,7 +40,7 @@ export function SustainabilityTabsSection({ tabs, label }: SustainabilityTabsSec
       </div>
       <Container className="pt-[var(--space-xl)]">
         <AnimatePresence mode="wait" initial={false}>
-          <motion.div
+          <m.div
             key={active.id}
             role="tabpanel"
             id={`${ID_PREFIX}-panel-${active.id}`}
@@ -72,7 +72,7 @@ export function SustainabilityTabsSection({ tabs, label }: SustainabilityTabsSec
                 ))}
               </ul>
             )}
-          </motion.div>
+          </m.div>
         </AnimatePresence>
       </Container>
     </section>

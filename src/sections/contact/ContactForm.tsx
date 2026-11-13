@@ -1,7 +1,7 @@
 'use client';
 
-import { useEffect, useRef, useState, type FormEvent } from 'react';
-import { AnimatePresence, motion } from 'motion/react';
+import { useEffect, useRef, useState, type FormEvent, type MouseEvent } from 'react';
+import { AnimatePresence, m } from 'motion/react';
 import { Check, Mail, MessageCircle } from 'lucide-react';
 import type { DictionaryI } from '@/i18n/dictionary.interface';
 import type { BusinessOption, ContactField, ContactFormDataI, ContactFormErrorsI, ContactMessageLabelsI } from '@/interfaces/contact.interface';
@@ -10,12 +10,14 @@ import { FormField } from '@/components/ui/FormField';
 import { Input } from '@/components/ui/Input';
 import { Select } from '@/components/ui/Select';
 import { Textarea } from '@/components/ui/Textarea';
-import { BUSINESS_OPTIONS, buildMailtoUrl, buildWhatsAppUrl, composeContactMessage, validateContactForm } from '@/services/contact.service';
+import { useQueryParam } from '@/hooks/useQueryParam';
+import { BUSINESS_OPTIONS, buildMailtoUrl, buildWhatsAppUrl, composeContactMessage, parseBusiness, validateContactForm } from '@/services/contact.service';
 
 interface ContactFormProps {
   dict: DictionaryI;
-  initialBusiness: BusinessOption;
 }
+
+type FormFieldsI = Omit<ContactFormDataI, 'business'>;
 
 type SendState = 'idle' | 'opening';
 
@@ -23,9 +25,16 @@ const FIELD_ORDER: ContactField[] = ['name', 'contact', 'message'];
 const OPENING_MS = 2500;
 const SWAP = { duration: 0.2, ease: [0.22, 1, 0.36, 1] } as const;
 
-export function ContactForm({ dict, initialBusiness }: ContactFormProps) {
+export function ContactForm({ dict }: ContactFormProps) {
   const { contact: copy } = dict;
-  const [data, setData] = useState<ContactFormDataI>({ business: initialBusiness, name: '', contact: '', message: '' });
+  // `?business=` pre-selects until the visitor picks one; read without suspending so typed input survives hydration.
+  const queryBusiness = parseBusiness(useQueryParam('business'));
+  const [chosenBusiness, setChosenBusiness] = useState<BusinessOption | null>(null);
+  const business = chosenBusiness ?? queryBusiness;
+  // Text fields are uncontrolled: the DOM keeps anything typed before hydration, and submit reads it.
+  // `draft` mirrors them only to render the email link's href.
+  const [draft, setDraft] = useState<FormFieldsI>({ name: '', contact: '', message: '' });
+  const formRef = useRef<HTMLFormElement>(null);
   const [errors, setErrors] = useState<ContactFormErrorsI>({});
   const [hasSubmitted, setHasSubmitted] = useState(false);
   const [sendState, setSendState] = useState<SendState>('idle');
@@ -35,17 +44,27 @@ export function ContactForm({ dict, initialBusiness }: ContactFormProps) {
   useEffect(() => () => clearTimeout(timer.current), []);
 
   const labels: ContactMessageLabelsI = { ...copy.message, businessNames: copy.businessNames };
-  const messageText = composeContactMessage(data, labels);
   const hasErrors = Object.keys(errors).length > 0;
 
-  const update = (field: keyof ContactFormDataI, value: string) => setData((current) => ({ ...current, [field]: value }));
+  const readData = (): ContactFormDataI => {
+    const form = formRef.current ? new FormData(formRef.current) : null;
+    const read = (field: keyof FormFieldsI) => String(form?.get(field) ?? draft[field]);
+    return { business, name: read('name'), contact: read('contact'), message: read('message') };
+  };
+  const mailtoFor = (data: ContactFormDataI) => buildMailtoUrl(copy.message.emailSubject, composeContactMessage(data, labels));
+
+  const update = (field: keyof FormFieldsI, value: string) => setDraft((current) => ({ ...current, [field]: value }));
   const handleBlur = () => {
-    if (hasSubmitted) setErrors(validateContactForm(data));
+    if (hasSubmitted) setErrors(validateContactForm(readData()));
+  };
+  const handleEmailClick = (event: MouseEvent<HTMLAnchorElement>) => {
+    event.currentTarget.href = mailtoFor(readData());
   };
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setHasSubmitted(true);
+    const data = readData();
     const nextErrors = validateContactForm(data);
     setErrors(nextErrors);
     const firstInvalid = FIELD_ORDER.find((field) => nextErrors[field]);
@@ -53,7 +72,7 @@ export function ContactForm({ dict, initialBusiness }: ContactFormProps) {
       fieldRefs.current[firstInvalid]?.focus();
       return;
     }
-    window.open(buildWhatsAppUrl(messageText), '_blank', 'noopener');
+    window.open(buildWhatsAppUrl(composeContactMessage(data, labels)), '_blank', 'noopener');
     setSendState('opening');
     clearTimeout(timer.current);
     timer.current = setTimeout(() => setSendState('idle'), OPENING_MS);
@@ -62,10 +81,10 @@ export function ContactForm({ dict, initialBusiness }: ContactFormProps) {
   const errorText = (field: ContactField) => (errors[field] ? copy.errors[errors[field]] : undefined);
 
   return (
-    <form noValidate onSubmit={handleSubmit} className="flex flex-col gap-[var(--space-sm)]">
+    <form ref={formRef} noValidate onSubmit={handleSubmit} className="flex flex-col gap-[var(--space-sm)]">
       <FormField id="contact-business" label={copy.fields.business}>
         {({ invalid, ...control }) => (
-          <Select {...control} invalid={invalid} value={data.business} onChange={(event) => update('business', event.target.value)}>
+          <Select {...control} invalid={invalid} value={business} onChange={(event) => setChosenBusiness(parseBusiness(event.target.value))}>
             {BUSINESS_OPTIONS.map((option) => (
               <option key={option} value={option}>
                 {copy.businessNames[option]}
@@ -83,7 +102,7 @@ export function ContactForm({ dict, initialBusiness }: ContactFormProps) {
             }}
             invalid={invalid}
             autoComplete="name"
-            value={data.name}
+            name="name"
             onChange={(event) => update('name', event.target.value)}
             onBlur={handleBlur}
           />
@@ -99,7 +118,7 @@ export function ContactForm({ dict, initialBusiness }: ContactFormProps) {
             invalid={invalid}
             inputMode="email"
             autoComplete="email"
-            value={data.contact}
+            name="contact"
             onChange={(event) => update('contact', event.target.value)}
             onBlur={handleBlur}
           />
@@ -113,7 +132,7 @@ export function ContactForm({ dict, initialBusiness }: ContactFormProps) {
               fieldRefs.current.message = element;
             }}
             invalid={invalid}
-            value={data.message}
+            name="message"
             onChange={(event) => update('message', event.target.value)}
             onBlur={handleBlur}
           />
@@ -127,7 +146,7 @@ export function ContactForm({ dict, initialBusiness }: ContactFormProps) {
       <div className="flex flex-col gap-[var(--space-xs)] sm:flex-row sm:items-center sm:justify-between">
         <Button type="submit" size="lg" aria-disabled={sendState === 'opening'} aria-label={sendState === 'opening' ? copy.openingWhatsApp : dict.actions.sendOnWhatsApp}>
           <AnimatePresence mode="wait" initial={false}>
-            <motion.span
+            <m.span
               key={sendState}
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -137,11 +156,12 @@ export function ContactForm({ dict, initialBusiness }: ContactFormProps) {
             >
               {sendState === 'opening' ? <Check aria-hidden /> : <MessageCircle aria-hidden />}
               <span aria-hidden>{sendState === 'opening' ? copy.openingWhatsApp : dict.actions.sendOnWhatsApp}</span>
-            </motion.span>
+            </m.span>
           </AnimatePresence>
         </Button>
         <a
-          href={buildMailtoUrl(copy.message.emailSubject, messageText)}
+          href={mailtoFor({ business, ...draft })}
+          onClick={handleEmailClick}
           className="inline-flex min-h-11 items-center gap-2 text-[length:var(--text-sm)] font-medium text-muted-foreground underline-offset-4 transition-colors hover:text-foreground hover:underline"
         >
           <Mail aria-hidden className="size-4" />

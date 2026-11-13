@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { animate, useInView } from 'motion/react';
+import { useInView } from 'motion/react';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 
 interface CountUpProps {
@@ -11,25 +11,28 @@ interface CountUpProps {
   className?: string;
 }
 
-/** Counts from 0 to `to` the first time it is visible. Screen readers always get the final value. */
+/** Counts from 0 to `to` the first time it is visible. Server HTML and screen readers always get the final value. */
 export function CountUp({ to, suffix = '', durationMs = 1200, className }: CountUpProps) {
   const ref = useRef<HTMLSpanElement>(null);
   const isInView = useInView(ref, { once: true });
   const prefersReducedMotion = usePrefersReducedMotion();
-  const [value, setValue] = useState(prefersReducedMotion ? to : 0);
+  // Starts at the final value so the server HTML (no-JS, crawlers, pre-hydration) is right;
+  // the count from 0 begins when the number scrolls into view.
+  const [animatedValue, setAnimatedValue] = useState(to);
+  const value = prefersReducedMotion ? to : animatedValue;
 
   useEffect(() => {
-    if (prefersReducedMotion) {
-      setValue(to);
-      return;
-    }
-    if (!isInView) return;
-    const controls = animate(0, to, {
-      duration: durationMs / 1000,
-      ease: [0.22, 1, 0.36, 1],
-      onUpdate: (latest) => setValue(Math.round(latest)),
+    if (prefersReducedMotion || !isInView) return;
+    // A plain rAF tween (ease-out cubic) keeps motion's animation engine out of the first-load bundle.
+    let frame = requestAnimationFrame(function tick(startedAt) {
+      const step = (now: number) => {
+        const progress = Math.min(1, (now - startedAt) / durationMs);
+        setAnimatedValue(Math.round(to * (1 - (1 - progress) ** 3)));
+        if (progress < 1) frame = requestAnimationFrame(step);
+      };
+      step(startedAt);
     });
-    return () => controls.stop();
+    return () => cancelAnimationFrame(frame);
   }, [isInView, prefersReducedMotion, to, durationMs]);
 
   return (

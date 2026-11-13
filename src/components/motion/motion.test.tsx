@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react';
+import { renderToString } from 'react-dom/server';
 import userEvent from '@testing-library/user-event';
 import { MotionConfig } from 'motion/react';
 import { AnimatedTabs, CountUp, FilterChips, Marquee, Reveal } from './index';
@@ -13,6 +14,10 @@ describe('CountUp', () => {
       </MotionConfig>,
     );
     expect(screen.getByText('90+')).toBeInTheDocument();
+  });
+
+  it('server-renders the final value (no-JS, crawlers, pre-hydration)', () => {
+    expect(renderToString(<CountUp to={90} suffix="+" />)).toContain('90<!-- -->+');
   });
 
   it('always exposes the final value to assistive tech', () => {

@@ -1,13 +1,17 @@
 'use client';
 
 import type { ReactNode } from 'react';
-import { MotionConfig } from 'motion/react';
+import { LazyMotion, MotionConfig } from 'motion/react';
 import { ThemeProvider } from './theme.provider';
+
+const loadMotionFeatures = () => import('@/components/motion/motionFeatures').then((module) => module.default);
 
 export function AppProviders({ children }: { children: ReactNode }) {
   return (
     <ThemeProvider>
-      <MotionConfig reducedMotion="user">{children}</MotionConfig>
+      <LazyMotion features={loadMotionFeatures} strict>
+        <MotionConfig reducedMotion="user">{children}</MotionConfig>
+      </LazyMotion>
     </ThemeProvider>
   );
 }

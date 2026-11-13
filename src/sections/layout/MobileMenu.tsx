@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useEffect, useRef, type KeyboardEvent, type RefObject } from 'react';
-import { AnimatePresence, motion } from 'motion/react';
+import { AnimatePresence, m } from 'motion/react';
 import { ArrowUpRight } from 'lucide-react';
 import { NAV_ITEMS } from '@/constants/navigation.constants';
 import type { DictionaryI } from '@/i18n/dictionary.interface';
@@ -62,7 +62,7 @@ export function MobileMenu({ open, onClose, locale, dict, pathname, triggerRef }
   return (
     <AnimatePresence>
       {open && (
-        <motion.div
+        <m.div
           ref={panelRef}
           id="mobile-menu"
           role="dialog"
@@ -75,7 +75,7 @@ export function MobileMenu({ open, onClose, locale, dict, pathname, triggerRef }
           transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
           className="fixed inset-x-0 bottom-0 top-16 z-40 flex flex-col overflow-y-auto bg-background px-[var(--space-md)] pb-[var(--space-lg)] pt-[var(--space-md)] lg:hidden"
         >
-          <motion.ul
+          <m.ul
             className="flex flex-col"
             initial="hidden"
             animate="visible"
@@ -84,7 +84,7 @@ export function MobileMenu({ open, onClose, locale, dict, pathname, triggerRef }
             {NAV_ITEMS.map((item) => {
               const isActive = isActivePath(pathname, item.path);
               return (
-                <motion.li
+                <m.li
                   key={item.key}
                   variants={{ hidden: { opacity: 0, x: -16 }, visible: { opacity: 1, x: 0 } }}
                   className="border-b border-border"
@@ -101,10 +101,10 @@ export function MobileMenu({ open, onClose, locale, dict, pathname, triggerRef }
                     {dict.nav[item.key]}
                     <ArrowUpRight aria-hidden className="size-6 text-muted-foreground" />
                   </Link>
-                </motion.li>
+                </m.li>
               );
             })}
-          </motion.ul>
+          </m.ul>
           <div className="mt-auto flex flex-col gap-[var(--space-sm)] pt-[var(--space-lg)]">
             <Button href={`/${locale}/contact`} size="lg" onClick={onClose} className="w-full">
               {dict.nav.contact}
@@ -114,7 +114,7 @@ export function MobileMenu({ open, onClose, locale, dict, pathname, triggerRef }
               <ThemeToggleConnected labels={dict.theme} />
             </div>
           </div>
-        </motion.div>
+        </m.div>
       )}
     </AnimatePresence>
   );

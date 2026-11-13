@@ -1,7 +1,7 @@
 'use client';
 
 import type { ReactNode } from 'react';
-import { AnimatePresence, motion } from 'motion/react';
+import { AnimatePresence, m } from 'motion/react';
 
 export interface FieldControlPropsI {
   id: string;
@@ -38,7 +38,7 @@ export function FormField({ id, label, hint, error, children }: FormFieldProps) 
       {children({ id, 'aria-describedby': describedBy, invalid: Boolean(error) })}
       <AnimatePresence initial={false}>
         {error && (
-          <motion.p
+          <m.p
             key="error"
             id={errorId}
             initial={{ height: 0, opacity: 0 }}
@@ -48,7 +48,7 @@ export function FormField({ id, label, hint, error, children }: FormFieldProps) 
             className="overflow-hidden text-[length:var(--text-sm)] font-medium text-primary"
           >
             {error}
-          </motion.p>
+          </m.p>
         )}
       </AnimatePresence>
     </div>

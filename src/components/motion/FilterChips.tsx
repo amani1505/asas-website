@@ -1,7 +1,7 @@
 'use client';
 
 import { useId } from 'react';
-import { motion } from 'motion/react';
+import { m } from 'motion/react';
 import { cn } from '@/utils/cn.util';
 
 interface FilterOptionI<T extends string> {
@@ -38,7 +38,7 @@ export function FilterChips<T extends string>({ options, active, onChange, label
               isActive ? 'border-transparent text-background' : 'border-border text-foreground hover:border-foreground/40',
             )}
           >
-            {isActive && <motion.span layoutId={layoutId} transition={CHIP_SPRING} className="absolute inset-0 rounded-md bg-foreground" />}
+            {isActive && <m.span layoutId={layoutId} transition={CHIP_SPRING} className="absolute inset-0 rounded-md bg-foreground" />}
             <span className="relative">{option.label}</span>
             {option.count !== undefined && (
               <span className={cn('relative text-[length:var(--text-xs)] tabular-nums', isActive ? 'text-background/70' : 'text-muted-foreground')}>

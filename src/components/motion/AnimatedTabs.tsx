@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef, type KeyboardEvent } from 'react';
-import { motion } from 'motion/react';
+import { m } from 'motion/react';
 import { cn } from '@/utils/cn.util';
 
 interface TabI<T extends string> {
@@ -59,7 +59,7 @@ export function AnimatedTabs<T extends string>({ tabs, active, onChange, idPrefi
               isActive ? 'text-primary-foreground' : 'text-muted-foreground hover:text-foreground',
             )}
           >
-            {isActive && <motion.span layoutId={`${idPrefix}-indicator`} transition={INDICATOR_SPRING} className="absolute inset-0 rounded-md bg-primary" />}
+            {isActive && <m.span layoutId={`${idPrefix}-indicator`} transition={INDICATOR_SPRING} className="absolute inset-0 rounded-md bg-primary" />}
             <span className="relative">{tab.label}</span>
           </button>
         );

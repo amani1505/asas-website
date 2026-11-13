@@ -1,13 +1,10 @@
-'use client';
-
 import Link from 'next/link';
 import { forwardRef, type ButtonHTMLAttributes, type ReactNode } from 'react';
-import { motion } from 'motion/react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/utils/cn.util';
 
 export const buttonVariants = cva(
-  'group/button inline-flex shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-md font-medium transition-colors duration-200 disabled:pointer-events-none disabled:opacity-50 [&_svg]:size-[1.1em] [&_svg]:shrink-0',
+  'group/button inline-flex shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-md font-medium transition-[color,background-color,border-color,transform] duration-200 active:scale-[0.97] disabled:pointer-events-none disabled:opacity-50 [&_svg]:size-[1.1em] [&_svg]:shrink-0',
   {
     variants: {
       variant: {
@@ -29,7 +26,7 @@ export const buttonVariants = cva(
 
 type ButtonVariantProps = VariantProps<typeof buttonVariants>;
 
-interface ButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'onAnimationStart' | 'onDrag' | 'onDragStart' | 'onDragEnd'>, ButtonVariantProps {
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>, ButtonVariantProps {
   /** Renders a Next.js link instead of a button. */
   href?: string;
   /** Extra attributes for links to other sites. */
@@ -39,9 +36,6 @@ interface ButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'onA
   children?: ReactNode;
 }
 
-const MotionLink = motion.create(Link);
-const PRESS = { scale: 0.97 };
-const PRESS_SPRING = { type: 'spring', stiffness: 500, damping: 30 } as const;
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
   { variant, size, className, href, target, rel, hrefLang, children, type = 'button', ...props },
@@ -51,24 +45,15 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
 
   if (href) {
     return (
-      <MotionLink
-        href={href}
-        target={target}
-        rel={rel}
-        hrefLang={hrefLang}
-        className={classes}
-        whileTap={PRESS}
-        transition={PRESS_SPRING}
-        {...(props as Record<string, unknown>)}
-      >
+      <Link href={href} target={target} rel={rel} hrefLang={hrefLang} className={classes} {...(props as Record<string, unknown>)}>
         {children}
-      </MotionLink>
+      </Link>
     );
   }
 
   return (
-    <motion.button ref={ref} type={type} className={classes} whileTap={PRESS} transition={PRESS_SPRING} {...props}>
+    <button ref={ref} type={type} className={classes} {...props}>
       {children}
-    </motion.button>
+    </button>
   );
 });
