@@ -4,7 +4,7 @@ export const careers: CareersContentI = {
   intro: {
     title: 'Kua pamoja na ASAS.',
     highlight: 'ASAS.',
-    body: ['Miaka tisini, kampuni nane na wateja katika nchi sita. Kuna nafasi ya kujenga taaluma ya kweli hapa.'],
+    body: ['Biashara ya familia tangu 1936, yenye kampuni katika nishati, usafirishaji, maziwa na majengo, na wateja katika nchi sita. Kuna nafasi ya kujenga taaluma ya kweli hapa.'],
   },
   reasons: [
     { title: 'Mazingira ya kisasa', description: 'Ofisi, maghala na viwanda vyenye vifaa bora kwa kazi nzuri.' },

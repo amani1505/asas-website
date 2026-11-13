@@ -4,7 +4,7 @@ export const careers: CareersContentI = {
   intro: {
     title: 'Grow with ASAS.',
     highlight: 'ASAS.',
-    body: ['Ninety years, eight companies and customers across six countries. There is room to build a real career here.'],
+    body: ['A family business since 1936, with companies in energy, logistics, dairy and real estate, and customers across six countries. There is room to build a real career here.'],
   },
   reasons: [
     { title: 'Modern workplaces', description: 'Well-equipped offices, depots and plants built for good work.' },

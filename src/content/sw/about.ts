@@ -8,7 +8,7 @@ export const about: AboutContentI = {
     highlight: 'ASAS',
     body: [
       'ASAS Group of Companies ni mojawapo ya makundi ya biashara ya zamani na makubwa zaidi Tanzania. Ilianza mwaka 1936 kama A. S. Abri Transporters, ikiwa na lori moja mjini Iringa.',
-      'Mwaka 1978 biashara ikawa ASAS Group, ikapanuka kutoka usafirishaji hadi maziwa, nishati, kilimo na majengo. Leo kampuni nane zinashiriki ahadi moja: ubora katika kila tufanyalo.',
+      'Mwaka 1978 biashara ikawa ASAS Group, ikapanuka kutoka usafirishaji hadi maziwa, nishati, kilimo na majengo. Leo kila kampuni ya ASAS inashiriki ahadi moja: ubora katika kila tufanyalo.',
     ],
     image: sw(IMAGES.aboutTeamDairy, 'Timu ya ASAS Dairy ikiwa na bidhaa zote'),
   },
@@ -28,7 +28,7 @@ export const about: AboutContentI = {
     { title: 'Mteja kwanza', description: 'Kila kampuni imejengwa kuzunguka mahitaji ya wateja wetu.' },
     { title: 'Usalama', description: 'Watu wetu, mashine zetu na mizigo yako hufika salama.' },
     { title: 'Jamii', description: 'Tunakua kwa kusaidia maeneo tunayofanyia kazi kukua pia.' },
-    { title: 'Ubunifu', description: 'Miaka tisini baadaye, bado tunatafuta njia bora zaidi za kufanya kazi.' },
+    { title: 'Ubunifu', description: 'Tangu 1936, tumeendelea kutafuta njia bora zaidi za kufanya kazi.' },
   ],
   team: [
     { name: 'Maziwa', role: 'Tunatengeneza maziwa freshi, mtindi na siagi Iringa kila siku.', image: sw(IMAGES.aboutTeamDairy, 'Timu ya ASAS Dairy ikiwa na bidhaa zote') },

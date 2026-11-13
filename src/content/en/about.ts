@@ -7,7 +7,7 @@ export const about: AboutContentI = {
     highlight: 'ASAS',
     body: [
       'ASAS Group of Companies is one of the oldest and biggest business groups in Tanzania. It began in 1936 as A. S. Abri Transporters, a single truck in Iringa.',
-      'In 1978 the business became ASAS Group, moving beyond transport into dairy, energy, farming and property. Today eight companies share one promise: excellence in all we do.',
+      'In 1978 the business became ASAS Group, moving beyond transport into dairy, energy, farming and property. Today every ASAS company shares one promise: excellence in all we do.',
     ],
     image: IMAGES.aboutTeamDairy,
   },
@@ -27,7 +27,7 @@ export const about: AboutContentI = {
     { title: 'Customers first', description: 'Every company is built around what our customers need.' },
     { title: 'Safety', description: 'Our people, machines and your goods come home safe.' },
     { title: 'Community', description: 'We grow by helping the places we work in grow too.' },
-    { title: 'Innovation', description: 'Ninety years in, we keep finding better ways to work.' },
+    { title: 'Innovation', description: 'Since 1936, we have kept finding better ways to work.' },
   ],
   team: [
     { name: 'Dairy', role: 'Making fresh milk, yogurt and butter in Iringa every day.', image: IMAGES.aboutTeamDairy },

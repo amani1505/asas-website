@@ -44,6 +44,13 @@ describe.each(LOCALES)('content integrity: %s', (locale) => {
     expect(text).not.toMatch(/lorem|TBD|javascript:|"#"|demo-business|All Page General|Pngtree|1 800 222 000|Dares Salaam|88 years/i);
   });
 
+  it('never hardcodes years in business or company/sector counts (they are computed)', () => {
+    const text = JSON.stringify(content);
+    expect(text).not.toMatch(/\b(ninety|tisini)\b/i);
+    expect(text).not.toMatch(/\b(eight|four|nane|nne)\s+(companies|sectors)\b|\b(kampuni|sekta)\s+(nane|nne)\b/i);
+    expect(text).not.toMatch(/\b\d{2,3}\+?\s+years\b|\bmiaka\s+\d{2,3}\b/i);
+  });
+
   it('every CtaI href is an internal locale-less path', () => {
     const hrefs = [...JSON.stringify(content).matchAll(/"href":"([^"]+)"/g)].map((match) => match[1]);
     expect(hrefs.length).toBeGreaterThan(0);

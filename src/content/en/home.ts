@@ -14,7 +14,7 @@ export const home: HomeContentI = {
   storyTeaser: {
     eyebrow: 'Our story',
     title: 'It started with one truck.',
-    body: 'In 1936, A. S. Abri bought a truck in Iringa to solve a simple problem: moving goods across Tanzania. Ninety years later, that one truck has grown into a family of companies that fuel, feed and house the country.',
+    body: 'In 1936, A. S. Abri bought a truck in Iringa to solve a simple problem: moving goods across Tanzania. Generations later, that one truck has grown into a family of companies that fuel, feed and house the country.',
     cta: { label: 'Read our story', href: '/about' },
     image: IMAGES.aboutAbriTransporters,
   },

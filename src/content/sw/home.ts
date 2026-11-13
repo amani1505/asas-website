@@ -20,7 +20,7 @@ export const home: HomeContentI = {
   storyTeaser: {
     eyebrow: 'Historia yetu',
     title: 'Ilianza na lori moja.',
-    body: 'Mwaka 1936, A. S. Abri alinunua lori Iringa ili kutatua tatizo rahisi: kusafirisha mizigo ndani ya Tanzania. Miaka tisini baadaye, lori hilo moja limekuwa familia ya kampuni zinazotoa nishati, chakula na makazi kwa nchi.',
+    body: 'Mwaka 1936, A. S. Abri alinunua lori Iringa ili kutatua tatizo rahisi: kusafirisha mizigo ndani ya Tanzania. Vizazi kadhaa baadaye, lori hilo moja limekuwa familia ya kampuni zinazotoa nishati, chakula na makazi kwa nchi.',
     cta: { label: 'Soma historia yetu', href: '/about' },
     image: sw(IMAGES.aboutAbriTransporters, 'Picha za zamani za malori ya kwanza ya A. S. Abri Transporters'),
   },
