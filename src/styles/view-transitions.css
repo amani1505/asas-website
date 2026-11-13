@@ -13,3 +13,75 @@ html.theme-reveal::view-transition-new(root) {
   animation: none;
   mix-blend-mode: normal;
 }
+
+/* ── Page transitions (PageTransition component) ──
+   Old page leaves fast; new page arrives gently with a small rise. */
+::view-transition-old(.page-exit) {
+  animation: 150ms ease-in both vt-fade-out;
+}
+::view-transition-new(.page-enter) {
+  animation:
+    250ms cubic-bezier(0.22, 1, 0.36, 1) 120ms both vt-fade-in,
+    350ms cubic-bezier(0.22, 1, 0.36, 1) 120ms both vt-rise;
+}
+
+/* ── Shared-element morphs (sector cards → sector hero, news card → article) ── */
+::view-transition-group(.morph) {
+  animation-duration: 400ms;
+  animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
+}
+::view-transition-image-pair(.morph) {
+  animation-name: vt-via-blur;
+}
+
+/* ── The header stays put while content changes ── */
+::view-transition-group(site-header) {
+  animation: none;
+  z-index: 100;
+}
+::view-transition-old(site-header) {
+  display: none;
+}
+::view-transition-new(site-header) {
+  animation: none;
+}
+
+@keyframes vt-fade-in {
+  from { opacity: 0; }
+}
+@keyframes vt-fade-out {
+  to { opacity: 0; }
+}
+@keyframes vt-rise {
+  from { transform: translateY(12px); }
+}
+@keyframes vt-via-blur {
+  30% { filter: blur(3px); }
+}
+
+/* ── Marquee ── */
+.marquee-track {
+  animation: marquee-scroll linear infinite;
+}
+.marquee:hover .marquee-track,
+.marquee:focus-within .marquee-track {
+  animation-play-state: paused;
+}
+@keyframes marquee-scroll {
+  to { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(*),
+  ::view-transition-new(*),
+  ::view-transition-group(*) {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
+  }
+  .marquee-track {
+    animation: none !important;
+  }
+  .marquee {
+    overflow-x: auto;
+  }
+}
