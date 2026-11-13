@@ -9,7 +9,6 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [{ protocol: 'https', hostname: 'i.ytimg.com', pathname: '/vi/**' }],
   },
-  partialPrefetching: true,
   turbopack: {
     rules: {
       "*.css": {
