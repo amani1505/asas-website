@@ -36,7 +36,7 @@ export const sw: DictionaryI = {
   stats: { years: 'Miaka ya uaminifu', companies: 'Kampuni', sectors: 'Sekta', offices: 'Ofisi' },
   home: {
     sectorsEyebrow: 'Tunachofanya',
-    sectorsTitle: 'Sekta nne. Familia moja.',
+    sectorsTitle: 'Sekta nyingi. Familia moja.',
     sectorsHighlight: 'Familia moja.',
     newsEyebrow: 'Mpya',
     newsTitle: 'Habari kutoka kwetu',
@@ -82,7 +82,7 @@ export const sw: DictionaryI = {
   about: {
     eyebrow: 'Kuhusu sisi',
     historyEyebrow: 'Historia yetu',
-    historyTitle: 'Miongo tisa, safari moja',
+    historyTitle: 'Tangu 1936, safari moja',
     valuesEyebrow: 'Kinachotuongoza',
     valuesTitle: 'Maadili yetu',
     teamEyebrow: 'Watu wetu',

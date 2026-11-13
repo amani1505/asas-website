@@ -36,7 +36,7 @@ export const en: DictionaryI = {
   stats: { years: 'Years of trust', companies: 'Companies', sectors: 'Sectors', offices: 'Offices' },
   home: {
     sectorsEyebrow: 'What we do',
-    sectorsTitle: 'Four sectors. One family.',
+    sectorsTitle: 'Many sectors. One family.',
     sectorsHighlight: 'One family.',
     newsEyebrow: 'Latest',
     newsTitle: 'News from the group',
@@ -82,7 +82,7 @@ export const en: DictionaryI = {
   about: {
     eyebrow: 'About us',
     historyEyebrow: 'Our history',
-    historyTitle: 'Nine decades, one journey',
+    historyTitle: 'Since 1936, one journey',
     valuesEyebrow: 'What guides us',
     valuesTitle: 'Our values',
     teamEyebrow: 'The people',

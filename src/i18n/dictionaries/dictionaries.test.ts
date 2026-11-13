@@ -7,6 +7,14 @@ const flattenKeys = (value: object, prefix = ''): string[] =>
   );
 
 describe('dictionaries', () => {
+  it('never hardcodes years in business or sector/company counts (they are computed)', () => {
+    for (const locale of ['en', 'sw'] as const) {
+      const text = JSON.stringify(getDictionaryFor(locale));
+      expect(text).not.toMatch(/\b(nine|ninety)\s+(decades|years)\b|\bmiongo\s+tisa\b|\bmiaka\s+tisini\b/i);
+      expect(text).not.toMatch(/\b(four|eight)\s+(sectors|companies)\b|\b(sekta|kampuni)\s+(nne|nane)\b/i);
+    }
+  });
+
   it('sw has every key en has', () => {
     expect(flattenKeys(getDictionaryFor('sw')).sort()).toEqual(flattenKeys(getDictionaryFor('en')).sort());
   });
