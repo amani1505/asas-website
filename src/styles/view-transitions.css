@@ -1,0 +1,15 @@
+/* Clicks during a transition pass through to the live page. */
+::view-transition {
+  pointer-events: none;
+}
+
+/* ── Theme reveal (see docs/theme-reveal-effect.md) ──
+   Scoped to `.theme-reveal` so page transitions keep their animations. */
+html.theme-reveal * {
+  view-transition-name: none !important;
+}
+html.theme-reveal::view-transition-old(root),
+html.theme-reveal::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
