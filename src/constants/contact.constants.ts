@@ -23,4 +23,5 @@ export const SOCIAL_LINKS = {
 /** The tracker does not answer over HTTPS (checked 2026-11-13). */
 export const AI_TRACKER_URL = 'http://vts.asas.co.tz';
 
-export const DEVELOPER_URL = 'https://iakka.com';
+/** Footer credit: the site's developer, Romanix. */
+export const DEVELOPER_EMAIL = 'amanideveloper1505@gmail.com';

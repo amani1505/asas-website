@@ -66,6 +66,13 @@ describe('SiteFooter', () => {
     expect(screen.getByRole('link', { name: /info@asas.co.tz/ })).toHaveAttribute('href', 'mailto:info@asas.co.tz');
   });
 
+  it('credits Romanix with an email link that opens in the mail app, not a new tab', () => {
+    renderWithPath('/en', <SiteFooter locale="en" dict={en} year={2026} />);
+    const credit = screen.getByRole('link', { name: 'Developed by Romanix' });
+    expect(credit).toHaveAttribute('href', 'mailto:amanideveloper1505@gmail.com');
+    expect(credit).not.toHaveAttribute('target');
+  });
+
   it('has no dead links', () => {
     const { container } = renderWithPath('/en', <SiteFooter locale="en" dict={en} year={2026} />);
     for (const link of container.querySelectorAll('a')) {

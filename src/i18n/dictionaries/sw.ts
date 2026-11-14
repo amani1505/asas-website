@@ -28,7 +28,7 @@ export const sw: DictionaryI = {
     email: 'Barua pepe',
     followUs: 'Tufuatilie',
     aiTracker: 'AI Tracker',
-    credit: 'Imetengenezwa na kusimamiwa na Iakka Automation',
+    credit: 'Imetengenezwa na Romanix',
     rights: 'Haki zote zimehifadhiwa.',
     explore: 'Gundua',
     reachUs: 'Tufikie',

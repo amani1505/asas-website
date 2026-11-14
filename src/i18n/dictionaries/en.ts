@@ -28,7 +28,7 @@ export const en: DictionaryI = {
     email: 'Email',
     followUs: 'Follow us',
     aiTracker: 'AI Tracker',
-    credit: 'Developed & maintained by Iakka Automation',
+    credit: 'Developed by Romanix',
     rights: 'All rights reserved.',
     explore: 'Explore',
     reachUs: 'Reach us',

@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { Mail, MapPin, MessageCircle, Phone } from 'lucide-react';
 import { NAV_ITEMS } from '@/constants/navigation.constants';
-import { AI_TRACKER_URL, DEVELOPER_URL, EMAIL, PHONES, SOCIAL_LINKS } from '@/constants/contact.constants';
+import { AI_TRACKER_URL, DEVELOPER_EMAIL, EMAIL, PHONES, SOCIAL_LINKS } from '@/constants/contact.constants';
 import type { DictionaryI } from '@/i18n/dictionary.interface';
 import type { Locale } from '@/i18n/locales';
 import { Container } from '@/components/ui/Container';
@@ -118,7 +118,7 @@ export function SiteFooter({ locale, dict, year }: SiteFooterProps) {
           <p>
             © {year} ASAS Group. {dict.footer.rights} <span className="italic">{dict.footer.tagline}</span>
           </p>
-          <a href={DEVELOPER_URL} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center hover:text-foreground">
+          <a href={`mailto:${DEVELOPER_EMAIL}`} className="inline-flex min-h-11 items-center hover:text-foreground">
             {dict.footer.credit}
           </a>
         </Container>
