@@ -2,9 +2,13 @@ node_modules
 .next
 .git
 .env*
-!.env.production
 *.tsbuildinfo
 Dockerfile
 docker-compose.yml
 .dockerignore
 *.md
+test-results
+playwright-report
+blob-report
+.superpowers
+coverage

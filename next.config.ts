@@ -2,7 +2,8 @@ import type { NextConfig } from "next";
 import { OLD_URL_REDIRECTS } from "./src/config/redirects.config";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  // Self-contained server in .next/standalone for the Docker image.
+  output: "standalone",
   experimental: {
     agentFeedback: true,
   },

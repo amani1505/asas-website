@@ -1,7 +1,10 @@
-
 services:
   web:
-    build: .
+    build:
+      context: .
+      args:
+        # Public URL used for canonical links, sitemap and share images (baked in at build).
+        NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL:-https://asas.co.tz}
     image: asas:latest
     container_name: asas
     restart: unless-stopped
