@@ -133,5 +133,6 @@ export const en: DictionaryI = {
     notFoundBody: "The page you're looking for has moved or never existed.",
     goHome: 'Go home',
     opensInNewTab: 'opens in a new tab',
+    skipIntro: 'Skip intro',
   },
 };

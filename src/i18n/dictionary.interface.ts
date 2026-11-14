@@ -41,5 +41,5 @@ export interface DictionaryI {
     openingWhatsApp: string;
     formHasErrors: string;
   };
-  common: { skipToContent: string; readMore: string; notFoundTitle: string; notFoundBody: string; goHome: string; opensInNewTab: string };
+  common: { skipToContent: string; readMore: string; notFoundTitle: string; notFoundBody: string; goHome: string; opensInNewTab: string; skipIntro: string };
 }

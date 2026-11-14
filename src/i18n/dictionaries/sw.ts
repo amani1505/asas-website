@@ -133,5 +133,6 @@ export const sw: DictionaryI = {
     notFoundBody: 'Ukurasa unaoutafuta umehamishwa au haukuwahi kuwepo.',
     goHome: 'Rudi nyumbani',
     opensInNewTab: 'inafunguka kwenye kichupo kipya',
+    skipIntro: 'Ruka utangulizi',
   },
 };

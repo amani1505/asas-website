@@ -51,7 +51,7 @@ function DotGrid({ className }: { className: string }) {
  */
 export function HeroVisual({ image, stats }: HeroVisualProps) {
   return (
-    <div className="relative mx-auto aspect-square w-full max-w-[560px]">
+    <div className="relative mx-auto aspect-square w-full max-w-[min(100%,820px)]">
       <svg data-hero-decor aria-hidden="true" width="0" height="0" className="absolute">
         <defs>
           <clipPath id={CLIP_ID} clipPathUnits="objectBoundingBox">
@@ -66,7 +66,7 @@ export function HeroVisual({ image, stats }: HeroVisualProps) {
       <Blob className="inset-[4%_2%_6%_10%] rotate-[8deg] text-brand-red" />
 
       <div className="animate-rise absolute inset-[9%_6%_10%_15%]" style={{ ...delay(120), clipPath: `url(#${CLIP_ID})` }}>
-        <SkeletonImage src={image.src} alt={image.alt} fill priority sizes="(min-width: 1024px) 34vw, 80vw" className="object-cover object-[70%_0%]" />
+        <SkeletonImage src={image.src} alt={image.alt} fill priority sizes="(min-width: 1024px) 45vw, 90vw" className="object-cover object-[70%_0%]" />
       </div>
 
       {stats.slice(0, 3).map((stat, index) => {

@@ -66,10 +66,11 @@
 }
 
 /* ── Fluid containers (named to avoid Tailwind's own `container` utility) ──
-   The gutter grows with the viewport (16px on phones, ~3vw on desktops) and the
-   site container tops out at 1600px so large screens are used, not boxed in. */
+   Content spans the screen with a gutter that grows with it (16px on phones,
+   4vw on desktops). The 2400px cap only stops ultra-wide monitors from
+   stretching lines into unreadable lengths. */
 @utility container-site {
-  width: min(100% - max(var(--space-md), 3vw) * 2, 1600px);
+  width: min(100% - max(var(--space-md), 4vw) * 2, 2400px);
   margin-inline: auto;
 }
 @utility container-narrow {
@@ -154,32 +155,100 @@
   animation-delay: var(--rise-delay, 0ms);
 }
 
-/* ── Splash screen: plays once per visit, then fades away (no JS needed) ── */
+/* ── Splash screen: plays once per visit, then fades away (no JS needed) ──
+   0.0s logo wipes in · contours draw · 0.6s route draws, truck drives, years
+   count · stops pop as the truck passes · 2.5s fade out. */
+@property --splash-year {
+  syntax: '<integer>';
+  inherits: false;
+  initial-value: 0;
+}
 @keyframes splash-out {
   to {
     opacity: 0;
     visibility: hidden;
   }
 }
-@keyframes splash-progress {
+@keyframes splash-wipe {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+@keyframes splash-route {
   from {
     transform: scaleX(0);
   }
 }
-@keyframes splash-logo-in {
+@keyframes splash-drive {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+@keyframes splash-pop {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, 8px) scale(0.6);
+  }
+  70% {
+    transform: translate(-50%, -2px) scale(1.08);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, 0) scale(1);
+  }
+}
+@keyframes splash-count {
+  from {
+    --splash-year: var(--splash-from);
+  }
+}
+@keyframes splash-fade-in {
   from {
     opacity: 0;
-    transform: scale(0.94);
+  }
+}
+@keyframes contour-draw {
+  to {
+    stroke-dashoffset: 0;
   }
 }
 .splash-screen {
-  animation: splash-out 0.45s ease-in 1.1s forwards;
+  animation: splash-out 0.5s ease-in 2.5s forwards;
 }
 .splash-logo {
-  animation: splash-logo-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: splash-wipe 0.8s cubic-bezier(0.65, 0, 0.35, 1) 0.1s both;
 }
-.splash-progress {
-  animation: splash-progress 1s cubic-bezier(0.65, 0, 0.35, 1) both;
+.splash-route {
+  animation: splash-route 1.2s cubic-bezier(0.45, 0, 0.25, 1) 0.6s both;
+}
+.splash-truck {
+  animation: splash-drive 1.2s cubic-bezier(0.45, 0, 0.25, 1) 0.6s both;
+}
+.splash-stop {
+  animation: splash-pop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) var(--stop-delay, 1s) both;
+}
+.splash-year {
+  counter-reset: splash-year var(--splash-year);
+  animation:
+    splash-count 1.2s cubic-bezier(0.45, 0, 0.25, 1) 0.6s both,
+    splash-fade-in 0.4s ease 0.5s both;
+}
+.splash-year::after {
+  content: counter(splash-year);
+}
+.splash-skip {
+  animation: splash-fade-in 0.4s ease 0.6s both;
+}
+.contour-draw {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: contour-draw 1.6s ease-out var(--ring-delay, 0s) forwards;
 }
 [data-splash='seen'] .splash-screen {
   display: none;

@@ -11,6 +11,7 @@ import { SiteHeader } from '@/sections/layout/SiteHeader';
 import { SkipLink } from '@/sections/layout/SkipLink';
 import { SplashScreen } from '@/sections/layout/SplashScreen';
 import { getCurrentYear } from '@/services/clock.service';
+import { getSectors } from '@/services/content.service';
 import { SPLASH_INIT_SCRIPT } from '@/utils/splashInitScript.util';
 import { THEME_INIT_SCRIPT } from '@/utils/themeInitScript.util';
 import '@/styles/globals.css';
@@ -42,7 +43,7 @@ export default async function LocaleLayout({ children, params }: LayoutProps<'/[
         <InlineScript html={SPLASH_INIT_SCRIPT} />
       </head>
       <body className="flex min-h-dvh flex-col">
-        <SplashScreen />
+        <SplashScreen sectors={getSectors(locale).map((sector) => sector.name)} year={year} skipLabel={dict.common.skipIntro} />
         <AppProviders>
           <SkipLink label={dict.common.skipToContent} />
           <SiteHeader locale={locale} dict={dict} />

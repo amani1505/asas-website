@@ -45,7 +45,7 @@ export function HeroSection({ hero, locale, stats, labels }: HeroSectionProps) {
           <p className="animate-rise text-[length:var(--text-lg)] font-medium text-muted-foreground" style={delay(0)}>
             {hero.eyebrow}
           </p>
-          <h1 className="animate-rise text-[length:var(--text-5xl)] font-extrabold leading-[1.02]" style={delay(80)}>
+          <h1 className="animate-rise text-[length:clamp(2.986rem,1.6rem+3.4vw,6.5rem)] font-extrabold leading-[1.02]" style={delay(80)}>
             <HighlightedText text={hero.title} highlight={hero.highlight} />
           </h1>
           <p className="animate-rise max-w-[48ch] text-[length:var(--text-lg)] text-muted-foreground" style={delay(160)}>
