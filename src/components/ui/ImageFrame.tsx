@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import { SkeletonImage } from '@/components/skeletons/SkeletonImage';
 import type { ImageI } from '@/interfaces/content.interface';
 import { cn } from '@/utils/cn.util';
 
@@ -15,7 +15,7 @@ interface ImageFrameProps {
 export function ImageFrame({ image, ratio, sizes, priority, className, imageClassName }: ImageFrameProps) {
   return (
     <div className={cn('relative w-full overflow-hidden rounded-md bg-muted', className)} style={{ aspectRatio: ratio }}>
-      <Image
+      <SkeletonImage
         src={image.src}
         alt={image.alt}
         fill

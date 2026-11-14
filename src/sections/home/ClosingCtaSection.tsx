@@ -6,6 +6,7 @@ import type { HomeContentI } from '@/interfaces/content.interface';
 import { Button } from '@/components/ui/Button';
 import { Container } from '@/components/ui/Container';
 import { Reveal } from '@/components/motion/Reveal';
+import { ContourLines } from '@/components/decor/ContourLines';
 import { localeHref } from '@/utils/format.util';
 
 interface ClosingCtaSectionProps {
@@ -18,13 +19,14 @@ export function ClosingCtaSection({ cta, locale, dict }: ClosingCtaSectionProps)
   return (
     <section className="py-[var(--space-2xl)]">
       <Container>
-        <Reveal className="relative overflow-hidden rounded-md bg-primary px-[var(--space-md)] py-[var(--space-xl)] text-primary-foreground sm:px-[var(--space-xl)]">
-          <div aria-hidden className="pointer-events-none absolute -right-16 -top-16 size-64 rounded-full border-[2.5rem] border-white/10" />
+        <Reveal className="relative overflow-hidden rounded-md bg-brand-charcoal px-[var(--space-md)] py-[var(--space-xl)] text-white sm:px-[var(--space-xl)]">
+          <ContourLines origin="right" rings={12} className="text-white/[0.12]" />
+          <div aria-hidden className="absolute inset-y-0 left-0 w-1.5 bg-brand-red" />
           <div className="relative flex max-w-[52ch] flex-col gap-[var(--space-sm)]">
             <h2 className="text-[length:var(--text-4xl)] font-extrabold">{cta.title}</h2>
             <p className="text-[length:var(--text-lg)] text-white/85">{cta.body}</p>
             <div className="mt-[var(--space-xs)] flex flex-wrap gap-[var(--space-xs)]">
-              <Button href={localeHref(locale, cta.cta.href)} size="lg" className="bg-white text-black hover:bg-white/90">
+              <Button href={localeHref(locale, cta.cta.href)} size="lg" className="bg-brand-red text-white hover:bg-brand-red/90">
                 {cta.cta.label}
                 <ArrowRight aria-hidden className="transition-transform group-hover/button:translate-x-0.5" />
               </Button>

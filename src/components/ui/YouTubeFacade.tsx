@@ -1,6 +1,6 @@
 'use client';
 
-import Image from 'next/image';
+import { SkeletonImage } from '@/components/skeletons/SkeletonImage';
 import { useState } from 'react';
 import { Play } from 'lucide-react';
 
@@ -26,7 +26,7 @@ export function YouTubeFacade({ videoId, title, playLabel }: YouTubeFacadeProps)
         />
       ) : (
         <button type="button" onClick={() => setIsPlaying(true)} aria-label={playLabel} className="group absolute inset-0">
-          <Image
+          <SkeletonImage
             src={`https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`}
             alt=""
             fill

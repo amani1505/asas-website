@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import { SkeletonImage } from '@/components/skeletons/SkeletonImage';
 import Link from 'next/link';
 import { ViewTransition } from 'react';
 import { ArrowUpRight } from 'lucide-react';
@@ -29,7 +29,7 @@ export function BusinessesGridSection({ sectors, locale, dict }: BusinessesGridS
             >
               <ViewTransition name={`sector-${sector.slug}`} share="morph" default="none">
                 <div className="relative aspect-[16/10] overflow-hidden md:aspect-auto md:min-h-64">
-                  <Image
+                  <SkeletonImage
                     src={sector.image.src}
                     alt={sector.image.alt}
                     fill

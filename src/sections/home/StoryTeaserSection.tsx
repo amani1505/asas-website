@@ -2,6 +2,7 @@ import { ArrowRight } from 'lucide-react';
 import type { Locale } from '@/i18n/locales';
 import type { HomeContentI } from '@/interfaces/content.interface';
 import { Button } from '@/components/ui/Button';
+import { ContourLines } from '@/components/decor/ContourLines';
 import { Container } from '@/components/ui/Container';
 import { ImageFrame } from '@/components/ui/ImageFrame';
 import { SectionHeading } from '@/components/ui/SectionHeading';
@@ -15,8 +16,9 @@ interface StoryTeaserSectionProps {
 
 export function StoryTeaserSection({ story, locale }: StoryTeaserSectionProps) {
   return (
-    <section className="py-[var(--space-2xl)]">
-      <Container className="grid items-center gap-[var(--space-lg)] md:grid-cols-2">
+    <section className="relative overflow-hidden bg-muted py-[var(--space-2xl)]">
+      <ContourLines origin="left" rings={14} className="text-foreground/[0.12]" />
+      <Container className="relative grid items-center gap-[var(--space-lg)] md:grid-cols-2">
         <Reveal>
           <ImageFrame image={story.image} ratio="5 / 4" sizes="(min-width: 768px) 50vw, 100vw" className="grayscale-[30%]" />
         </Reveal>

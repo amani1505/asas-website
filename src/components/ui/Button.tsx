@@ -12,10 +12,6 @@ export const buttonVariants = cva(
         secondary: 'bg-foreground text-background hover:bg-foreground/85',
         outline: 'border border-border bg-transparent text-foreground hover:border-foreground/40 hover:bg-muted',
         ghost: 'bg-transparent text-foreground hover:bg-muted',
-        /** For use on a brand-red surface. */
-        inverse: 'bg-primary-foreground text-brand-red hover:bg-primary-foreground/90',
-        inverseOutline:
-          'border border-primary-foreground/50 bg-transparent text-primary-foreground hover:border-primary-foreground hover:bg-primary-foreground/10',
       },
       size: {
         sm: 'min-h-10 px-3 text-[length:var(--text-sm)]',

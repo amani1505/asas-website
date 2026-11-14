@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import { SkeletonImage } from '@/components/skeletons/SkeletonImage';
 import Link from 'next/link';
 import { ViewTransition } from 'react';
 import type { Locale } from '@/i18n/locales';
@@ -16,7 +16,7 @@ export function NewsCard({ item, locale }: NewsCardProps) {
       {item.image && (
         <ViewTransition name={`news-${item.slug}`} share="morph" default="none">
           <div className="relative aspect-[16/10] overflow-hidden bg-muted">
-            <Image
+            <SkeletonImage
               src={item.image.src}
               alt={item.image.alt}
               fill

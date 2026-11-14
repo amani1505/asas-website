@@ -1,8 +1,9 @@
-import { screen, waitFor, within } from '@testing-library/react';
+import { render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { getDictionaryFor } from '@/i18n/getDictionaryFor';
 import { renderWithPath } from '@/test-utils/renderWithPath';
 import { LanguageSwitch } from './LanguageSwitch';
+import { PageHeaderSection } from './PageHeaderSection';
 import { SiteFooter } from './SiteFooter';
 import { SiteHeader } from './SiteHeader';
 
@@ -70,5 +71,17 @@ describe('SiteFooter', () => {
     for (const link of container.querySelectorAll('a')) {
       expect(link.getAttribute('href')).toMatch(/^(\/en|https?:|tel:|mailto:)/);
     }
+  });
+});
+
+describe('PageHeaderSection', () => {
+  it('wraps the page heading with decorative contour lines', () => {
+    const { container } = render(
+      <PageHeaderSection>
+        <h1>Title</h1>
+      </PageHeaderSection>,
+    );
+    expect(screen.getByRole('heading', { level: 1, name: 'Title' })).toBeInTheDocument();
+    expect(container.querySelector('svg[aria-hidden="true"]')).toBeInTheDocument();
   });
 });

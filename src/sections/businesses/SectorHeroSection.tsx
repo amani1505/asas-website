@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import { SkeletonImage } from '@/components/skeletons/SkeletonImage';
 import Link from 'next/link';
 import { ViewTransition } from 'react';
 import { ArrowLeft } from 'lucide-react';
@@ -34,7 +34,7 @@ export function SectorHeroSection({ sector, locale, dict }: SectorHeroSectionPro
           </div>
           <ViewTransition name={`sector-${sector.slug}`} share="morph" default="none">
             <div className="relative aspect-[16/10] overflow-hidden rounded-md bg-muted">
-              <Image src={sector.image.src} alt={sector.image.alt} fill priority sizes="(min-width: 1024px) 55vw, 100vw" className="object-cover" />
+              <SkeletonImage src={sector.image.src} alt={sector.image.alt} fill priority sizes="(min-width: 1024px) 55vw, 100vw" className="object-cover" />
             </div>
           </ViewTransition>
         </div>

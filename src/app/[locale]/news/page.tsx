@@ -3,8 +3,8 @@ import { notFound } from 'next/navigation';
 import { buildMetadata } from '@/utils/metadata.util';
 import { getDictionaryFor } from '@/i18n/getDictionaryFor';
 import { hasLocale } from '@/i18n/locales';
-import { Container } from '@/components/ui/Container';
 import { SectionHeading } from '@/components/ui/SectionHeading';
+import { PageHeaderSection } from '@/sections/layout/PageHeaderSection';
 import { PageTransition } from '@/components/motion/PageTransition';
 import { getNews, getNewsCategories } from '@/services/content.service';
 import { NewsGridSection } from '@/sections/news/NewsGridSection';
@@ -23,9 +23,9 @@ export default async function NewsPage({ params }: PageProps<'/[locale]/news'>) 
 
   return (
     <PageTransition>
-      <Container className="animate-rise py-[var(--space-xl)]">
+      <PageHeaderSection>
         <SectionHeading as="h1" eyebrow={dict.news.eyebrow} title={dict.news.title} description={dict.news.description} />
-      </Container>
+      </PageHeaderSection>
       <NewsGridSection items={getNews(locale)} categories={getNewsCategories(locale)} locale={locale} labels={dict.news} />
     </PageTransition>
   );

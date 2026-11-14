@@ -4,7 +4,6 @@ import { getDictionaryFor } from '@/i18n/getDictionaryFor';
 import { getNews } from '@/services/content.service';
 import { HeroSection } from './HeroSection';
 import { LatestNewsSection } from './LatestNewsSection';
-import { StatsGrid, StatsSection } from './StatsSection';
 import { ClosingCtaSection } from './ClosingCtaSection';
 
 const en = getDictionaryFor('en');
@@ -23,33 +22,24 @@ describe('HeroSection', () => {
   });
 });
 
-describe('HeroSection with stats', () => {
-  it('shows the stats inside the hero, in the light-on-red style', () => {
-    const { container } = render(
-      <HeroSection
-        hero={CONTENT.en.home.hero}
-        locale="en"
-        footer={<StatsGrid stats={{ years: 90, companies: 8, sectors: 4, offices: 2 }} labels={en.stats} tone="inverse" />}
-      />,
-    );
-    const hero = container.querySelector('section')!;
-    expect(within(hero).getByLabelText('90+')).toBeInTheDocument();
-    expect(within(hero).getByText(en.stats.offices)).toHaveClass('text-primary-foreground/90');
+describe('HeroSection floating stats', () => {
+  const stats = { years: 90, companies: 8, sectors: 4, offices: 2 };
+
+  it('floats the group numbers as cards beside the photo', () => {
+    render(<HeroSection hero={CONTENT.en.home.hero} locale="en" stats={stats} labels={en.stats} />);
+    const cards = screen.getAllByTestId('hero-stat');
+    expect(cards).toHaveLength(3);
+    expect(within(cards[0]).getByText('90+')).toBeInTheDocument();
+    expect(within(cards[0]).getByText(en.stats.years)).toBeInTheDocument();
+    expect(within(cards[1]).getByText(en.stats.companies)).toBeInTheDocument();
   });
 
-  it('draws the tanker-livery chevrons as decoration only', () => {
-    const { container } = render(<HeroSection hero={CONTENT.en.home.hero} locale="en" />);
-    const band = container.querySelector('[data-chevrons]');
-    expect(band).toHaveAttribute('aria-hidden', 'true');
-  });
-});
-
-describe('StatsSection', () => {
-  it('renders computed values', () => {
-    render(<StatsSection stats={{ years: 90, companies: 8, sectors: 4, offices: 2 }} labels={en.stats} />);
-    expect(screen.getByLabelText('90+')).toBeInTheDocument();
-    expect(screen.getByLabelText('8')).toBeInTheDocument();
-    expect(screen.getByText(en.stats.companies)).toBeInTheDocument();
+  it('shows the driver photo inside the blob, with decoration hidden from assistive tech', () => {
+    const { container } = render(<HeroSection hero={CONTENT.en.home.hero} locale="en" stats={stats} labels={en.stats} />);
+    expect(screen.getByRole('img', { name: CONTENT.en.home.hero.images[0].alt })).toBeInTheDocument();
+    const decor = container.querySelectorAll('[data-hero-decor]');
+    expect(decor.length).toBeGreaterThan(2);
+    decor.forEach((node) => expect(node).toHaveAttribute('aria-hidden', 'true'));
   });
 });
 

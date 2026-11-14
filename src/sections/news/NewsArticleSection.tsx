@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import { SkeletonImage } from '@/components/skeletons/SkeletonImage';
 import Link from 'next/link';
 import { ViewTransition } from 'react';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
@@ -61,7 +61,7 @@ export function NewsArticleSection({ item, newer, older, locale, labels }: NewsA
         {item.image && (
           <ViewTransition name={`news-${item.slug}`} share="morph" default="none">
             <div className="relative aspect-[16/9] w-full overflow-hidden rounded-md bg-muted">
-              <Image src={item.image.src} alt={item.image.alt} fill priority sizes="(min-width: 768px) 768px, 100vw" className="object-cover" />
+              <SkeletonImage src={item.image.src} alt={item.image.alt} fill priority sizes="(min-width: 768px) 768px, 100vw" className="object-cover" />
             </div>
           </ViewTransition>
         )}

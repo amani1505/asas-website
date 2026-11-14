@@ -1,4 +1,5 @@
 import type { AboutContentI } from '@/interfaces/content.interface';
+import { ContourLines } from '@/components/decor/ContourLines';
 import { Container } from '@/components/ui/Container';
 import { ImageFrame } from '@/components/ui/ImageFrame';
 import { SectionHeading } from '@/components/ui/SectionHeading';
@@ -10,8 +11,9 @@ interface AboutIntroSectionProps {
 
 export function AboutIntroSection({ intro, eyebrow }: AboutIntroSectionProps) {
   return (
-    <section className="py-[var(--space-xl)]">
-      <Container className="grid items-center gap-[var(--space-lg)] lg:grid-cols-[1.1fr_1fr]">
+    <section className="relative overflow-hidden py-[var(--space-xl)]">
+      <ContourLines origin="left" rings={14} className="text-foreground/[0.08]" />
+      <Container className="relative grid items-center gap-[var(--space-lg)] lg:grid-cols-[1.1fr_1fr]">
         <div className="animate-rise flex flex-col gap-[var(--space-sm)]">
           <SectionHeading
             as="h1"

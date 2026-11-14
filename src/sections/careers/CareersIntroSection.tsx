@@ -1,4 +1,5 @@
 import type { CareersContentI, ValueI } from '@/interfaces/content.interface';
+import { ContourLines } from '@/components/decor/ContourLines';
 import { Container } from '@/components/ui/Container';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { ValueCard } from '@/components/domain/ValueCard';
@@ -13,8 +14,9 @@ interface CareersIntroSectionProps {
 
 export function CareersIntroSection({ intro, eyebrow, reasonsTitle, reasons }: CareersIntroSectionProps) {
   return (
-    <section className="py-[var(--space-xl)]">
-      <Container className="flex flex-col gap-[var(--space-2xl)]">
+    <section className="relative overflow-hidden py-[var(--space-xl)]">
+      <ContourLines origin="right" rings={14} className="text-foreground/[0.08]" />
+      <Container className="relative flex flex-col gap-[var(--space-2xl)]">
         <div className="animate-rise">
           <SectionHeading
             as="h1"

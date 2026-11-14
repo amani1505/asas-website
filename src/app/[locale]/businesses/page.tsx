@@ -3,8 +3,8 @@ import { notFound } from 'next/navigation';
 import { buildMetadata } from '@/utils/metadata.util';
 import { getDictionaryFor } from '@/i18n/getDictionaryFor';
 import { hasLocale } from '@/i18n/locales';
-import { Container } from '@/components/ui/Container';
 import { SectionHeading } from '@/components/ui/SectionHeading';
+import { PageHeaderSection } from '@/sections/layout/PageHeaderSection';
 import { PageTransition } from '@/components/motion/PageTransition';
 import { getSectors } from '@/services/content.service';
 import { BusinessesGridSection } from '@/sections/businesses/BusinessesGridSection';
@@ -23,9 +23,9 @@ export default async function BusinessesPage({ params }: PageProps<'/[locale]/bu
 
   return (
     <PageTransition>
-      <Container className="animate-rise py-[var(--space-xl)]">
+      <PageHeaderSection>
         <SectionHeading as="h1" eyebrow={dict.businesses.eyebrow} title={dict.businesses.title} highlight={dict.businesses.highlight} description={dict.businesses.description} />
-      </Container>
+      </PageHeaderSection>
       <BusinessesGridSection sectors={getSectors(locale)} locale={locale} dict={dict} />
     </PageTransition>
   );

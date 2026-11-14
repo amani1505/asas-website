@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import { SkeletonImage } from '@/components/skeletons/SkeletonImage';
 import Link from 'next/link';
 import { ViewTransition } from 'react';
 import { ArrowUpRight } from 'lucide-react';
@@ -31,7 +31,7 @@ export function SectorCard({ sector, locale, size, moreLabel, companiesLabel, co
     >
       <ViewTransition name={`sector-${sector.slug}`} share="morph" default="none">
         <div className="absolute inset-0 -z-10">
-          <Image
+          <SkeletonImage
             src={sector.image.src}
             alt={sector.image.alt}
             fill

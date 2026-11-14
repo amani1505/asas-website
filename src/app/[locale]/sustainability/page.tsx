@@ -3,8 +3,8 @@ import { notFound } from 'next/navigation';
 import { buildMetadata } from '@/utils/metadata.util';
 import { getDictionaryFor } from '@/i18n/getDictionaryFor';
 import { hasLocale } from '@/i18n/locales';
-import { Container } from '@/components/ui/Container';
 import { SectionHeading } from '@/components/ui/SectionHeading';
+import { PageHeaderSection } from '@/sections/layout/PageHeaderSection';
 import { PageTransition } from '@/components/motion/PageTransition';
 import { getContent } from '@/services/content.service';
 import { SustainabilityTabsSection } from '@/sections/sustainability/SustainabilityTabsSection';
@@ -23,7 +23,7 @@ export default async function SustainabilityPage({ params }: PageProps<'/[locale
 
   return (
     <PageTransition>
-      <Container className="animate-rise py-[var(--space-xl)]">
+      <PageHeaderSection>
         <SectionHeading
           as="h1"
           eyebrow={dict.sustainability.eyebrow}
@@ -31,7 +31,7 @@ export default async function SustainabilityPage({ params }: PageProps<'/[locale
           highlight={sustainability.intro.highlight}
           description={sustainability.intro.body}
         />
-      </Container>
+      </PageHeaderSection>
       <SustainabilityTabsSection tabs={sustainability.tabs} label={dict.sustainability.tabsLabel} />
     </PageTransition>
   );

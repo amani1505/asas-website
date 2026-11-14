@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import { SkeletonImage } from '@/components/skeletons/SkeletonImage';
 import type { ProductI } from '@/interfaces/content.interface';
 
 export function ProductCard({ product, sizesLabel }: { product: ProductI; sizesLabel: string }) {
@@ -9,7 +9,7 @@ export function ProductCard({ product, sizesLabel }: { product: ProductI; sizesL
       className="group flex h-full flex-col overflow-hidden rounded-md border border-border bg-card transition-colors duration-300 hover:border-foreground/30"
     >
       <div className="relative aspect-square overflow-hidden bg-white">
-        <Image
+        <SkeletonImage
           src={product.image.src}
           alt={product.image.alt}
           fill
