@@ -58,6 +58,23 @@ describe('SectorCtaSection', () => {
 
 describe('SectorChaptersSection', () => {
   const sectors = CONTENT.en.sectors;
+  // The shared setup reports every element as on screen at once; a real page
+  // that hasn't scrolled reports nothing, so use a silent observer here.
+  const original = globalThis.IntersectionObserver;
+  class SilentIntersectionObserver {
+    observe() {}
+    unobserve() {}
+    disconnect() {}
+    takeRecords() {
+      return [];
+    }
+  }
+  beforeEach(() => {
+    globalThis.IntersectionObserver = SilentIntersectionObserver as unknown as typeof IntersectionObserver;
+  });
+  afterEach(() => {
+    globalThis.IntersectionObserver = original;
+  });
   const renderChapters = () => render(<SectorChaptersSection sectors={sectors} locale="en" dict={en} />);
 
   it('gives every sector a chapter with a link to its page', () => {

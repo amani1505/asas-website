@@ -13,5 +13,10 @@ export const careers: CareersContentI = {
     { title: 'Safe and secure', description: '24/7 security and a safety-first culture at every site.' },
     { title: 'A supportive culture', description: 'An inclusive team that works together and helps each other grow.' },
   ],
+  steps: [
+    { title: 'Send your CV', description: 'Email it to us, with the area or role you have in mind in the subject.' },
+    { title: 'We read every one', description: 'Your CV is kept on file and shared with the teams it fits.' },
+    { title: 'We reach out', description: 'When a role fits your skills, we call or email you to meet.' },
+  ],
   roles: [],
 };

@@ -33,10 +33,39 @@ export interface DictionaryI {
     routeLabel: string;
   };
   products: { eyebrow: string; title: string; filterLabel: string; all: string; milk: string; yogurt: string; mtindi: string; butter: string; powder: string; sizes: string };
-  news: { eyebrow: string; title: string; description: string; filterLabel: string; all: string; newer: string; older: string; backToNews: string; empty: string };
+  news: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    filterLabel: string;
+    all: string;
+    newer: string;
+    older: string;
+    backToNews: string;
+    empty: string;
+    searchLabel: string;
+    searchPlaceholder: string;
+    yearsLabel: string;
+    allYears: string;
+    reset: string;
+  };
   about: { eyebrow: string; historyEyebrow: string; historyTitle: string; valuesEyebrow: string; valuesTitle: string; teamEyebrow: string; teamTitle: string; videoTitle: string; playVideo: string };
   sustainability: { eyebrow: string; tabsLabel: string; impact: { years: string; standards: string; programmes: string; commitments: string } };
-  careers: { eyebrow: string; openRoles: string; emptyTitle: string; emptyBody: string; whyTitle: string };
+  careers: {
+    eyebrow: string;
+    openRoles: string;
+    emptyTitle: string;
+    emptyBody: string;
+    whyTitle: string;
+    findPath: string;
+    pathsBody: string;
+    pathsLabel: string;
+    companiesTitle: string;
+    workTitle: string;
+    /** Followed by the area name, e.g. "Send your CV for Logistics". */
+    cvFor: string;
+    stepsTitle: string;
+  };
   contact: {
     eyebrow: string;
     title: string;

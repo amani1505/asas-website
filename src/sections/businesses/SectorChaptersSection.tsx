@@ -34,7 +34,7 @@ export function SectorChaptersSection({ sectors, locale, dict }: SectorChaptersS
         {/* Pinned photo and route (wide screens). */}
         <div className="hidden lg:block">
           <div className="sticky top-24 flex flex-col gap-[var(--space-md)]">
-            <div className="relative aspect-[4/5] max-h-[calc(100dvh-14rem)] w-full overflow-hidden rounded-md bg-muted">
+            <div className="relative h-[clamp(22rem,calc(100dvh-15rem),44rem)] w-full overflow-hidden rounded-md bg-muted">
               {sectors.map((sector, index) => (
                 <div
                   key={sector.slug}

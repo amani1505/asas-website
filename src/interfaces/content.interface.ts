@@ -119,6 +119,8 @@ export interface OpenRoleI {
 export interface CareersContentI {
   intro: { title: string; highlight: string; body: string[] };
   reasons: ValueI[];
+  /** How applying works, in order. */
+  steps: ValueI[];
   roles: OpenRoleI[];
 }
 

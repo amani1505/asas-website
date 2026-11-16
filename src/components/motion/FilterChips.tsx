@@ -34,7 +34,7 @@ export function FilterChips<T extends string>({ options, active, onChange, label
             aria-checked={isActive}
             onClick={() => onChange(option.id)}
             className={cn(
-              'relative inline-flex min-h-11 items-center gap-2 rounded-md border px-[var(--space-sm)] text-[length:var(--text-sm)] font-medium transition-colors',
+              'relative inline-flex min-h-11 shrink-0 items-center gap-2 whitespace-nowrap rounded-md border px-[var(--space-sm)] text-[length:var(--text-sm)] font-medium transition-colors',
               isActive ? 'border-transparent text-background' : 'border-border text-foreground hover:border-foreground/40',
             )}
           >

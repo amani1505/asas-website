@@ -2,17 +2,13 @@ import { ArrowUpRight, Briefcase, MapPin, Mail } from 'lucide-react';
 import type { OpenRoleI } from '@/interfaces/content.interface';
 import { Button } from '@/components/ui/Button';
 import { Container } from '@/components/ui/Container';
+import { cvMailto } from '@/utils/careers.util';
 
 interface OpenRolesSectionProps {
   roles: OpenRoleI[];
   empty: { title: string; body: string };
   email: string;
   labels: { heading: string; sendCv: string };
-}
-
-function cvMailto(email: string, roleTitle?: string): string {
-  const subject = roleTitle ? `CV: ${roleTitle}` : 'CV';
-  return `mailto:${email}?subject=${encodeURIComponent(subject)}`;
 }
 
 export function OpenRolesSection({ roles, empty, email, labels }: OpenRolesSectionProps) {

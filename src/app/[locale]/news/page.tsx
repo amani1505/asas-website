@@ -7,7 +7,7 @@ import { SectionHeading } from '@/components/ui/SectionHeading';
 import { PageHeaderSection } from '@/sections/layout/PageHeaderSection';
 import { PageTransition } from '@/components/motion/PageTransition';
 import { getNews, getNewsCategories } from '@/services/content.service';
-import { NewsGridSection } from '@/sections/news/NewsGridSection';
+import { NewsroomSection } from '@/sections/news/NewsroomSection';
 
 export async function generateMetadata({ params }: PageProps<'/[locale]/news'>): Promise<Metadata> {
   const { locale } = await params;
@@ -26,7 +26,7 @@ export default async function NewsPage({ params }: PageProps<'/[locale]/news'>) 
       <PageHeaderSection>
         <SectionHeading as="h1" eyebrow={dict.news.eyebrow} title={dict.news.title} description={dict.news.description} />
       </PageHeaderSection>
-      <NewsGridSection items={getNews(locale)} categories={getNewsCategories(locale)} locale={locale} labels={dict.news} />
+      <NewsroomSection items={getNews(locale)} categories={getNewsCategories(locale)} locale={locale} labels={dict.news} readLabel={dict.home.readArticle} />
     </PageTransition>
   );
 }

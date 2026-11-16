@@ -13,5 +13,10 @@ export const careers: CareersContentI = {
     { title: 'Usalama', description: 'Ulinzi wa saa 24 na utamaduni wa usalama kwanza kila eneo.' },
     { title: 'Utamaduni wa kusaidiana', description: 'Timu jumuishi inayoshirikiana na kusaidiana kukua.' },
   ],
+  steps: [
+    { title: 'Tuma CV yako', description: 'Itume kwa barua pepe, ukiandika eneo au nafasi unayoitaka kwenye kichwa cha barua.' },
+    { title: 'Tunasoma kila moja', description: 'CV yako inahifadhiwa na kushirikishwa kwa timu zinazokufaa.' },
+    { title: 'Tunakutafuta', description: 'Nafasi inayolingana na ujuzi wako ikipatikana, tutakupigia au kukutumia barua pepe tukutane.' },
+  ],
   roles: [],
 };
