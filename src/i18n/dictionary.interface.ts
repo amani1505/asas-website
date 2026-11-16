@@ -17,12 +17,25 @@ export interface DictionaryI {
   language: { label: string; en: string; sw: string };
   footer: { tagline: string; callsWhatsapp: string; calls: string; email: string; followUs: string; aiTracker: string; credit: string; rights: string; explore: string; reachUs: string };
   stats: { years: string; companies: string; sectors: string; offices: string };
-  home: { sectorsEyebrow: string; sectorsTitle: string; sectorsHighlight: string; newsEyebrow: string; newsTitle: string; clientsEyebrow: string; clientsTitle: string; companiesCount: string; companyCount: string };
-  businesses: { eyebrow: string; title: string; highlight: string; description: string; companiesInSector: string; services: string; jumpTo: string; ctaTitle: string; ctaBody: string };
+  home: { sectorsEyebrow: string; sectorsTitle: string; sectorsHighlight: string; newsEyebrow: string; newsTitle: string; clientsEyebrow: string; clientsTitle: string; companiesCount: string; companyCount: string; readArticle: string };
+  businesses: {
+    eyebrow: string;
+    title: string;
+    highlight: string;
+    description: string;
+    companiesInSector: string;
+    services: string;
+    jumpTo: string;
+    ctaTitle: string;
+    ctaBody: string;
+    /** Followed by the sector name, e.g. "Explore Energy". */
+    exploreSector: string;
+    routeLabel: string;
+  };
   products: { eyebrow: string; title: string; filterLabel: string; all: string; milk: string; yogurt: string; mtindi: string; butter: string; powder: string; sizes: string };
   news: { eyebrow: string; title: string; description: string; filterLabel: string; all: string; newer: string; older: string; backToNews: string; empty: string };
   about: { eyebrow: string; historyEyebrow: string; historyTitle: string; valuesEyebrow: string; valuesTitle: string; teamEyebrow: string; teamTitle: string; videoTitle: string; playVideo: string };
-  sustainability: { eyebrow: string; tabsLabel: string };
+  sustainability: { eyebrow: string; tabsLabel: string; impact: { years: string; standards: string; programmes: string; commitments: string } };
   careers: { eyebrow: string; openRoles: string; emptyTitle: string; emptyBody: string; whyTitle: string };
   contact: {
     eyebrow: string;

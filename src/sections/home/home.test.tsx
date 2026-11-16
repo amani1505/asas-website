@@ -44,12 +44,23 @@ describe('HeroSection floating stats', () => {
 });
 
 describe('LatestNewsSection', () => {
-  it('shows exactly 3 newest items', () => {
-    const items = getNews('en');
+  const items = getNews('en');
+
+  it('features the newest story and lines up the next four as stops on a route', () => {
     render(<LatestNewsSection items={items} locale="en" dict={en} />);
     const articles = screen.getAllByRole('article');
-    expect(articles).toHaveLength(3);
+    expect(articles).toHaveLength(5);
+    expect(articles[0]).toHaveAttribute('data-featured', 'true');
     expect(within(articles[0]).getByRole('heading')).toHaveTextContent(items[0].title);
+    expect(within(articles[0]).getByRole('link', { name: new RegExp(items[0].title) })).toHaveAttribute('href', `/en/news/${items[0].slug}`);
+    const stops = within(screen.getByRole('list')).getAllByRole('listitem');
+    expect(stops).toHaveLength(4);
+    expect(within(stops[0]).getByRole('heading')).toHaveTextContent(items[1].title);
+    expect(within(stops[0]).getByText((_, el) => el?.tagName === 'TIME' && el.getAttribute('datetime') === items[1].date)).toBeInTheDocument();
+  });
+
+  it('links to all news', () => {
+    render(<LatestNewsSection items={items} locale="en" dict={en} />);
     expect(screen.getByRole('link', { name: en.actions.viewAllNews })).toHaveAttribute('href', '/en/news');
   });
 });

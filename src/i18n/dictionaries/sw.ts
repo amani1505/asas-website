@@ -44,6 +44,7 @@ export const sw: DictionaryI = {
     clientsTitle: 'Washirika tunaosonga pamoja',
     companiesCount: 'kampuni',
     companyCount: 'kampuni',
+    readArticle: 'Soma habari kamili',
   },
   businesses: {
     eyebrow: 'Biashara zetu',
@@ -55,6 +56,8 @@ export const sw: DictionaryI = {
     jumpTo: 'Nenda kwa',
     ctaTitle: 'Ungependa kufanya kazi nasi?',
     ctaBody: 'Tuambie unachohitaji na timu sahihi itakurudia.',
+    exploreSector: 'Gundua',
+    routeLabel: 'Sekta',
   },
   products: {
     eyebrow: 'ASAS Dairy',
@@ -90,7 +93,7 @@ export const sw: DictionaryI = {
     videoTitle: 'Tazama ASAS ikifanya kazi',
     playVideo: 'Cheza video',
   },
-  sustainability: { eyebrow: 'Uendelevu', tabsLabel: 'Mada za uendelevu' },
+  sustainability: { eyebrow: 'Uendelevu', tabsLabel: 'Mada za uendelevu', impact: { years: 'Miaka ya biashara yenye uwajibikaji', standards: 'Viwango vya kimataifa', programmes: 'Programu za jamii', commitments: 'Ahadi za usalama' } },
   careers: {
     eyebrow: 'Ajira',
     openRoles: 'Nafasi zilizo wazi',

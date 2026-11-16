@@ -13,7 +13,7 @@ import { ClientsSection } from '@/sections/home/ClientsSection';
 import { ClosingCtaSection } from '@/sections/home/ClosingCtaSection';
 import { HeroSection } from '@/sections/home/HeroSection';
 import { LatestNewsSection } from '@/sections/home/LatestNewsSection';
-import { SectorsBentoSection } from '@/sections/home/SectorsBentoSection';
+import { SectorsShowcaseSection } from '@/sections/home/SectorsShowcaseSection';
 import { StoryTeaserSection } from '@/sections/home/StoryTeaserSection';
 
 export async function generateMetadata({ params }: PageProps<'/[locale]'>): Promise<Metadata> {
@@ -34,7 +34,7 @@ export default async function HomePage({ params }: PageProps<'/[locale]'>) {
   return (
     <PageTransition>
       <HeroSection hero={home.hero} locale={locale} stats={stats} labels={dict.stats} />
-      <SectorsBentoSection sectors={getSectors(locale)} locale={locale} dict={dict} />
+      <SectorsShowcaseSection sectors={getSectors(locale)} locale={locale} dict={dict} />
       <StoryTeaserSection story={home.storyTeaser} locale={locale} />
       <LatestNewsSection items={getNews(locale)} locale={locale} dict={dict} />
       <ClientsSection clients={CLIENTS} dict={dict} />

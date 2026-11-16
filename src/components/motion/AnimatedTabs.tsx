@@ -3,6 +3,7 @@
 import { useRef, type KeyboardEvent } from 'react';
 import { m } from 'motion/react';
 import { cn } from '@/utils/cn.util';
+import { nextTabIndex } from '@/utils/tabs.util';
 
 interface TabI<T extends string> {
   id: T;
@@ -25,11 +26,7 @@ export function AnimatedTabs<T extends string>({ tabs, active, onChange, idPrefi
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
   const handleKeyDown = (event: KeyboardEvent<HTMLButtonElement>, index: number) => {
-    const keyOffsets: Record<string, number> = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 };
-    let nextIndex: number | undefined;
-    if (event.key in keyOffsets) nextIndex = (index + keyOffsets[event.key] + tabs.length) % tabs.length;
-    if (event.key === 'Home') nextIndex = 0;
-    if (event.key === 'End') nextIndex = tabs.length - 1;
+    const nextIndex = nextTabIndex(event.key, index, tabs.length);
     if (nextIndex === undefined) return;
     event.preventDefault();
     tabRefs.current[nextIndex]?.focus();

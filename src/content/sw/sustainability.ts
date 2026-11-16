@@ -1,3 +1,5 @@
+import { IMAGES } from '@/content/images';
+import { sw } from './alt.util';
 import type { SustainabilityContentI } from '@/interfaces/content.interface';
 
 export const sustainability: SustainabilityContentI = {
@@ -18,6 +20,7 @@ export const sustainability: SustainabilityContentI = {
     },
     {
       id: 'hse',
+      image: sw(IMAGES.sustainabilityHse, 'Wafanyakazi wa ASAS wakiwa na vifaa vya usalama'),
       title: 'Afya, usalama na mazingira',
       paragraphs: [
         'Usalama wa watu wetu, mashine zetu na mizigo yako unakuja kwanza. Madereva wanafunzwa udereva wa kujihami, na timu yetu ya matengenezo hukagua magari kabla na baada ya kila safari.',
@@ -39,6 +42,7 @@ export const sustainability: SustainabilityContentI = {
     },
     {
       id: 'community',
+      image: sw(IMAGES.sustainabilityCommunity, 'Kituo salama cha damu ASAS ilichojenga katika Hospitali ya Rufaa ya Mkoa wa Iringa'),
       title: 'Jamii',
       paragraphs: ['Tunawekeza tunapofanyia kazi: katika afya, elimu, michezo na biashara za wenyeji.'],
       points: [

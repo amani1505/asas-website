@@ -87,6 +87,7 @@ export interface SustainabilityTabI {
   title: string;
   paragraphs: string[];
   points?: string[];
+  image?: ImageI;
 }
 
 export interface ClientI {

@@ -1,3 +1,4 @@
+import { IMAGES } from '@/content/images';
 import type { SustainabilityContentI } from '@/interfaces/content.interface';
 
 export const sustainability: SustainabilityContentI = {
@@ -18,6 +19,7 @@ export const sustainability: SustainabilityContentI = {
     },
     {
       id: 'hse',
+      image: IMAGES.sustainabilityHse,
       title: 'Health, safety & environment',
       paragraphs: [
         'The safety of our people, our machines and your shipments comes first. Drivers are trained in defensive driving, and our in-house maintenance team inspects vehicles before and after every trip.',
@@ -39,6 +41,7 @@ export const sustainability: SustainabilityContentI = {
     },
     {
       id: 'community',
+      image: IMAGES.sustainabilityCommunity,
       title: 'Community',
       paragraphs: ['We invest where we work: in health, education, sport and local enterprise.'],
       points: [

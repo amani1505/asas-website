@@ -44,6 +44,7 @@ export const en: DictionaryI = {
     clientsTitle: 'Partners who move with us',
     companiesCount: 'companies',
     companyCount: 'company',
+    readArticle: 'Read the story',
   },
   businesses: {
     eyebrow: 'Our businesses',
@@ -55,6 +56,8 @@ export const en: DictionaryI = {
     jumpTo: 'Jump to',
     ctaTitle: 'Want to work with us?',
     ctaBody: 'Tell us what you need and the right team will get back to you.',
+    exploreSector: 'Explore',
+    routeLabel: 'Sectors',
   },
   products: {
     eyebrow: 'ASAS Dairy',
@@ -90,7 +93,7 @@ export const en: DictionaryI = {
     videoTitle: 'See ASAS in motion',
     playVideo: 'Play video',
   },
-  sustainability: { eyebrow: 'Sustainability', tabsLabel: 'Sustainability topics' },
+  sustainability: { eyebrow: 'Sustainability', tabsLabel: 'Sustainability topics', impact: { years: 'Years of responsible business', standards: 'International standards', programmes: 'Community programmes', commitments: 'Safety commitments' } },
   careers: {
     eyebrow: 'Careers',
     openRoles: 'Open roles',

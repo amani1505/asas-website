@@ -1,11 +1,11 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { CONTENT } from '@/content';
 import { getDictionaryFor } from '@/i18n/getDictionaryFor';
 import { CompanySection } from './CompanySection';
 import { ProductCatalogueSection } from './ProductCatalogueSection';
 import { SectorCtaSection } from './SectorCtaSection';
-import { BusinessesGridSection } from './BusinessesGridSection';
+import { SectorChaptersSection } from './SectorChaptersSection';
 
 const en = getDictionaryFor('en');
 
@@ -56,10 +56,43 @@ describe('SectorCtaSection', () => {
   });
 });
 
-describe('BusinessesGridSection', () => {
-  it('links every sector and names its companies', () => {
-    render(<BusinessesGridSection sectors={CONTENT.en.sectors} locale="en" dict={en} />);
-    expect(screen.getByRole('link', { name: /Real Estate/ })).toHaveAttribute('href', '/en/businesses/real-estate');
-    expect(screen.getByText('Universal Clearing & Forwarding')).toBeInTheDocument();
+describe('SectorChaptersSection', () => {
+  const sectors = CONTENT.en.sectors;
+  const renderChapters = () => render(<SectorChaptersSection sectors={sectors} locale="en" dict={en} />);
+
+  it('gives every sector a chapter with a link to its page', () => {
+    renderChapters();
+    for (const sector of sectors) {
+      expect(screen.getByRole('heading', { level: 2, name: sector.name })).toBeInTheDocument();
+      expect(screen.getByRole('link', { name: `${en.businesses.exploreSector} ${sector.name}` })).toHaveAttribute('href', `/en/businesses/${sector.slug}`);
+    }
+  });
+
+  it('links each company straight to its place on the sector page', () => {
+    renderChapters();
+    expect(screen.getByRole('link', { name: /Universal Clearing & Forwarding/ })).toHaveAttribute(
+      'href',
+      '/en/businesses/logistics#universal-clearing-forwarding',
+    );
+    const companyCount = sectors.reduce((total, sector) => total + sector.companies.length, 0);
+    expect(screen.getAllByTestId('company-card')).toHaveLength(companyCount);
+  });
+
+  it('marks the first sector as the current stop on the route', () => {
+    renderChapters();
+    const route = screen.getByRole('navigation', { name: en.businesses.routeLabel });
+    const stops = within(route).getAllByRole('link');
+    expect(stops).toHaveLength(sectors.length);
+    expect(stops[0]).toHaveAttribute('aria-current', 'true');
+    expect(stops[0]).toHaveAttribute('href', `#${sectors[0].slug}`);
+  });
+
+  it('jumping to a stop makes it current and shows that sector’s photo', async () => {
+    const { container } = renderChapters();
+    const route = screen.getByRole('navigation', { name: en.businesses.routeLabel });
+    await userEvent.click(within(route).getByRole('link', { name: sectors[2].name }));
+    expect(within(route).getByRole('link', { name: sectors[2].name })).toHaveAttribute('aria-current', 'true');
+    expect(container.querySelector('[data-photo="dairy-farms"]')).toHaveAttribute('data-active', 'true');
+    expect(container.querySelector('[data-photo="energy"]')).toHaveAttribute('data-active', 'false');
   });
 });
