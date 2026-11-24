@@ -32,6 +32,19 @@ Object.defineProperty(globalThis, 'IntersectionObserver', {
   value: ImmediateIntersectionObserver,
 });
 
+/** jsdom has no ResizeObserver; Embla carousels need one to start. Sizes never change in tests. */
+class NoopResizeObserver {
+  observe(): void {}
+  unobserve(): void {}
+  disconnect(): void {}
+}
+
+Object.defineProperty(globalThis, 'ResizeObserver', {
+  writable: true,
+  configurable: true,
+  value: NoopResizeObserver,
+});
+
 jest.mock('next/navigation', () => {
   // eslint-disable-next-line @typescript-eslint/no-require-imports
   const { getMockNavigationState } = require('@/test-utils/renderWithPath');

@@ -33,7 +33,7 @@ export default async function HomePage({ params }: PageProps<'/[locale]'>) {
 
   return (
     <PageTransition>
-      <HeroSection hero={home.hero} locale={locale} stats={stats} labels={dict.stats} />
+      <HeroSection hero={home.hero} locale={locale} sectors={getSectors(locale)} stats={stats} dict={dict} />
       <SectorsShowcaseSection sectors={getSectors(locale)} locale={locale} dict={dict} />
       <StoryTeaserSection story={home.storyTeaser} locale={locale} />
       <LatestNewsSection items={getNews(locale)} locale={locale} dict={dict} />

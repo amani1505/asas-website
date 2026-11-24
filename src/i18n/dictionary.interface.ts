@@ -17,7 +17,7 @@ export interface DictionaryI {
   language: { label: string; en: string; sw: string };
   footer: { tagline: string; callsWhatsapp: string; calls: string; email: string; followUs: string; aiTracker: string; credit: string; rights: string; explore: string; reachUs: string };
   stats: { years: string; companies: string; sectors: string; offices: string };
-  home: { sectorsEyebrow: string; sectorsTitle: string; sectorsHighlight: string; newsEyebrow: string; newsTitle: string; clientsEyebrow: string; clientsTitle: string; companiesCount: string; companyCount: string; readArticle: string };
+  home: { sectorsEyebrow: string; sectorsTitle: string; sectorsHighlight: string; newsEyebrow: string; newsTitle: string; clientsEyebrow: string; clientsTitle: string; companiesCount: string; companyCount: string; readArticle: string; heroSlidesLabel: string; showSlide: string; pauseSlides: string; playSlides: string };
   businesses: {
     eyebrow: string;
     title: string;

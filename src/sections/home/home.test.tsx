@@ -1,4 +1,5 @@
 import { render, screen, within } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { CONTENT } from '@/content';
 import { getDictionaryFor } from '@/i18n/getDictionaryFor';
 import { getNews } from '@/services/content.service';
@@ -9,37 +10,53 @@ import { ClosingCtaSection } from './ClosingCtaSection';
 const en = getDictionaryFor('en');
 
 describe('HeroSection', () => {
+  const stats = { years: 90, companies: 8, sectors: 4, offices: 2 };
+  const sectors = CONTENT.en.sectors;
+  const renderHero = (locale: 'en' | 'sw' = 'en') =>
+    render(<HeroSection hero={CONTENT.en.home.hero} locale={locale} sectors={sectors} stats={stats} dict={en} />);
+  const thumb = (name: string) => screen.getByRole('button', { name: `${en.home.showSlide} ${name}` });
+  const activeCaption = (container: HTMLElement) => container.querySelector('[data-caption][data-active="true"]')!;
+
   it('shows the headline with the highlighted words', () => {
-    render(<HeroSection hero={CONTENT.en.home.hero} locale="en" />);
+    renderHero();
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Powering Tanzania since 1936.');
     expect(screen.getByText('since 1936').tagName).toBe('SPAN');
   });
 
   it('links its calls to action to localized pages', () => {
-    render(<HeroSection hero={CONTENT.en.home.hero} locale="sw" />);
+    renderHero('sw');
     expect(screen.getByRole('link', { name: CONTENT.en.home.hero.primaryCta.label })).toHaveAttribute('href', '/sw/businesses');
     expect(screen.getByRole('link', { name: CONTENT.en.home.hero.secondaryCta.label })).toHaveAttribute('href', '/sw/contact');
   });
-});
 
-describe('HeroSection floating stats', () => {
-  const stats = { years: 90, companies: 8, sectors: 4, offices: 2 };
-
-  it('floats the group numbers as cards beside the photo', () => {
-    render(<HeroSection hero={CONTENT.en.home.hero} locale="en" stats={stats} labels={en.stats} />);
-    const cards = screen.getAllByTestId('hero-stat');
-    expect(cards).toHaveLength(3);
-    expect(within(cards[0]).getByText('90+')).toBeInTheDocument();
-    expect(within(cards[0]).getByText(en.stats.years)).toBeInTheDocument();
-    expect(within(cards[1]).getByText(en.stats.companies)).toBeInTheDocument();
+  it('counts up the group numbers under the calls to action', () => {
+    renderHero();
+    const items = screen.getAllByTestId('hero-stat');
+    expect(items).toHaveLength(3);
+    expect(within(items[0]).getByText('90+')).toBeInTheDocument();
+    expect(within(items[1]).getByText(en.stats.companies)).toBeInTheDocument();
   });
 
-  it('shows the driver photo inside the blob, with decoration hidden from assistive tech', () => {
-    const { container } = render(<HeroSection hero={CONTENT.en.home.hero} locale="en" stats={stats} labels={en.stats} />);
-    expect(screen.getByRole('img', { name: CONTENT.en.home.hero.images[0].alt })).toBeInTheDocument();
-    const decor = container.querySelectorAll('[data-hero-decor]');
-    expect(decor.length).toBeGreaterThan(2);
-    decor.forEach((node) => expect(node).toHaveAttribute('aria-hidden', 'true'));
+  it('shows one described slide per sector in a labelled slideshow', () => {
+    renderHero();
+    const show = screen.getByRole('region', { name: en.home.heroSlidesLabel });
+    for (const sector of sectors) expect(within(show).getByRole('img', { name: sector.image.alt })).toBeInTheDocument();
+  });
+
+  it('starts on the first sector, and a thumbnail jumps the whole slideshow to its sector', async () => {
+    const { container } = renderHero();
+    expect(thumb(sectors[0].name)).toHaveAttribute('aria-current', 'true');
+    expect(activeCaption(container)).toHaveTextContent(sectors[0].tagline);
+    await userEvent.click(thumb(sectors[2].name));
+    expect(thumb(sectors[2].name)).toHaveAttribute('aria-current', 'true');
+    expect(thumb(sectors[0].name)).not.toHaveAttribute('aria-current');
+    expect(activeCaption(container)).toHaveTextContent(sectors[2].tagline);
+  });
+
+  it('lets visitors pause and resume the slideshow', async () => {
+    renderHero();
+    await userEvent.click(screen.getByRole('button', { name: en.home.pauseSlides }));
+    expect(screen.getByRole('button', { name: en.home.playSlides })).toBeInTheDocument();
   });
 });
 

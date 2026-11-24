@@ -45,6 +45,10 @@ export const en: DictionaryI = {
     companiesCount: 'companies',
     companyCount: 'company',
     readArticle: 'Read the story',
+    heroSlidesLabel: 'Our sectors',
+    showSlide: 'Show',
+    pauseSlides: 'Pause slideshow',
+    playSlides: 'Play slideshow',
   },
   businesses: {
     eyebrow: 'Our businesses',

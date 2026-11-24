@@ -45,6 +45,10 @@ export const sw: DictionaryI = {
     companiesCount: 'kampuni',
     companyCount: 'kampuni',
     readArticle: 'Soma habari kamili',
+    heroSlidesLabel: 'Sekta zetu',
+    showSlide: 'Onyesha',
+    pauseSlides: 'Simamisha slaidi',
+    playSlides: 'Endesha slaidi',
   },
   businesses: {
     eyebrow: 'Biashara zetu',
